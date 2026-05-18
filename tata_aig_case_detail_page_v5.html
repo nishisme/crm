@@ -1,0 +1,2116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TATA AIG Case Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --tata-blue: #003b71;
+            --tata-blue-2: #005da8;
+            --tata-red: #d71920;
+            --soft-blue: #eef6ff;
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --line: #e5e7eb;
+            --bg: #f6f8fb;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --purple: #7c3aed
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 50
+        }
+
+        .brand-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: .02em;
+            color: var(--tata-blue)
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--tata-blue), var(--tata-blue-2));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 800;
+            box-shadow: 0 10px 22px rgba(0, 59, 113, .2)
+        }
+
+        .side-nav {
+            background: var(--tata-blue);
+            min-height: calc(100vh - 72px);
+            color: #dbeafe;
+            border-radius: 0 28px 28px 0;
+            position: sticky;
+            top: 72px
+        }
+
+        .side-nav .nav-link {
+            color: #dbeafe;
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: .94rem
+        }
+
+        .side-nav .nav-link.active,
+        .side-nav .nav-link:hover {
+            background: #fff;
+            color: var(--tata-blue)
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, var(--tata-blue), #0b65b1);
+            color: #fff;
+            border: 0;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 18px 40px rgba(0, 59, 113, .18)
+        }
+
+        .hero-card::after {
+            content: '';
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            position: absolute;
+            right: -80px;
+            top: -90px
+        }
+
+        .panel-card,
+        .metric-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, .05)
+        }
+
+        .small-label {
+            color: var(--muted);
+            font-size: .78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em
+        }
+
+        .form-control,
+        .form-select,
+        .form-check-input {
+            border-radius: 12px;
+            border-color: var(--line)
+        }
+
+        .btn-tata {
+            background: var(--tata-red);
+            color: #fff;
+            border: 0;
+            border-radius: 12px;
+            font-weight: 700
+        }
+
+        .btn-tata:hover {
+            background: #b9141a;
+            color: #fff
+        }
+
+        .btn-outline-tata {
+            border: 1px solid var(--tata-blue);
+            color: var(--tata-blue);
+            border-radius: 12px;
+            font-weight: 700
+        }
+
+        .btn-outline-tata:hover {
+            background: var(--tata-blue);
+            color: #fff
+        }
+
+        .badge-soft-blue {
+            background: var(--soft-blue);
+            color: var(--tata-blue);
+            border: 1px solid #d8ebff
+        }
+
+        .pill,
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #fff;
+            font-weight: 700
+        }
+
+        .chip {
+            background: var(--soft-blue);
+            color: var(--tata-blue);
+            border-color: #d8ebff
+        }
+
+        .table>:not(caption)>*>* {
+            padding: 12px 10px
+        }
+
+        .module-tab {
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: #fff;
+            color: var(--tata-blue);
+            font-weight: 700;
+            padding: .55rem .95rem;
+            cursor: pointer
+        }
+
+        .module-tab.active {
+            background: var(--tata-blue);
+            color: #fff
+        }
+
+        .soft-box {
+            background: #f8fbff;
+            border: 1px dashed #cfe2ff;
+            border-radius: 18px;
+            padding: 14px
+        }
+
+        .mini-card {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 14px;
+            background: #fff
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        .field-card {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 12px 14px;
+            background: #fff
+        }
+
+        .field-card.editable {
+            border-color: #cfe2ff;
+            background: #f8fbff
+        }
+
+        .field-label {
+            color: var(--muted);
+            font-size: .8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: .3rem
+        }
+
+        .required-star {
+            color: var(--tata-red);
+            margin-left: 4px
+        }
+
+        .field-input,
+        .field-value {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: var(--ink);
+            font-weight: 600;
+            outline: none;
+            padding: 0
+        }
+
+        .field-input {
+            border-bottom: 1px dashed #bfd4f7;
+            padding-bottom: 4px
+        }
+
+        .field-helper {
+            color: var(--muted);
+            font-size: .78rem;
+            margin-top: .25rem
+        }
+
+        .stage-strip {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px
+        }
+
+        .stage-step {
+            min-width: 170px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 14px;
+            background: #fff
+        }
+
+        .stage-step.active {
+            border-color: var(--tata-blue);
+            background: var(--soft-blue)
+        }
+
+        .nav-tabs .nav-link {
+            border-radius: 14px 14px 0 0;
+            font-weight: 700;
+            color: var(--tata-blue)
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--tata-blue);
+            background: #fff;
+            border-color: #cfe2ff #cfe2ff #fff
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px
+        }
+
+        .task-note {
+            background: #fff8e1;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            border-radius: 14px;
+            padding: 10px 12px
+        }
+
+        .error-ring {
+            border-color: var(--danger) !important;
+            box-shadow: 0 0 0 .15rem rgba(220, 38, 38, .15)
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 26px
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background: var(--line)
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 18px
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -23px;
+            top: 3px;
+            width: 12px;
+            height: 12px;
+            background: var(--tata-blue);
+            border-radius: 999px;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 3px #d8ebff
+        }
+
+        .comment-item,
+        .attachment-item {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 10px 12px;
+            background: #fff
+        }
+
+        .task-collab {
+            background: #fbfdff;
+            border: 1px dashed #dce7f7;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 12px
+        }
+
+        @media (max-width:991px) {
+            .side-nav {
+                min-height: auto;
+                border-radius: 0 0 24px 24px;
+                position: static
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="topbar py-3">
+        <div class="container-fluid px-4 d-flex align-items-center justify-content-between">
+            <div class="brand-pill">
+                <div class="brand-mark">TA</div>
+                <div>
+                    <div class="fs-5 lh-1">TATA AIG</div><small class="text-muted fw-semibold">Case Journey</small>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-3 flex-wrap justify-content-end"><select id="roleSwitcher"
+                    class="form-select form-select-sm" style="width:170px;">
+                    <option value="Sales">View as Sales</option>
+                    <option value="UW" selected>View as UW</option>
+                    <option value="RI">View as RI</option>
+                    <option value="RE">View as RE</option>
+                    <option value="Senior_UW">View as Senior_UW</option>
+                    <option value="Corporate_UW">View as Corporate_UW</option>
+                    <option value="Ops">View as Ops</option>
+                </select><button class="btn btn-outline-tata btn-sm" id="reloadConfigBtn"><i
+                        class="bi bi-arrow-repeat me-1"></i> Reload Config</button>
+                <div id="roleAvatar"
+                    class="rounded-circle bg-primary-subtle text-primary fw-bold d-grid place-items-center"
+                    style="width:38px;height:38px;">UW</div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-lg-2 px-0">
+                <div class="side-nav p-3 p-lg-4">
+                    <div class="small text-white-50 mb-3 fw-bold text-uppercase">Workspace</div>
+                    <nav class="nav flex-column"><a class="nav-link"
+                            href="index.html"><i
+                                class="bi bi-speedometer2 me-2"></i>Monitoring Dashboard</a><a class="nav-link active"
+                            href="#"><i class="bi bi-diagram-3 me-2"></i>Case Journey</a><a class="nav-link"
+                            href="#modules-panel"><i class="bi bi-ui-checks-grid me-2"></i>Modules</a><a
+                            class="nav-link" href="#audit"><i class="bi bi-clock-history me-2"></i>Audit Trail</a></nav>
+                    <div class="mt-4 p-3 rounded-4" style="background: rgba(255,255,255,.1);">
+                        <div class="small text-white-50">Current Domain</div>
+                        <div class="fw-bold text-white">Commercial Lines</div><span
+                            class="badge bg-light text-primary mt-2">Current/default task only</span>
+                    </div>
+                </div>
+            </aside>
+            <main class="col-lg-10 p-4">
+                <section class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4"><a
+                            class="btn btn-outline-tata" href="index.html"><i
+                                class="bi bi-arrow-left me-2"></i>Back to Monitoring Dashboard</a>
+                        <div class="pill"><i class="bi bi-lock"></i>Only current actor can take action</div>
+                    </div>
+                </section>
+                <section class="mb-4">
+                    <div class="panel-card p-4 mb-4">
+                        <div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-4">
+                            <div>
+                                <div class="d-flex flex-wrap gap-2 mb-2"><span
+                                        class="badge badge-soft-blue rounded-pill px-3 py-2" id="caseBadge"></span><span
+                                        class="badge badge-soft-blue rounded-pill px-3 py-2"
+                                        id="caseIntentBadge"></span><span
+                                        class="badge badge-soft-blue rounded-pill px-3 py-2"
+                                        id="caseProductBadge"></span></div>
+                                <h3 class="fw-bold mb-1" id="caseTitle"></h3>
+                                <p class="text-muted mb-0" id="caseSubtitle"></p>
+                            </div>
+                            <div class="text-end">
+                                <div class="small-label">Current Stage</div><span
+                                    class="badge bg-primary rounded-pill px-3 py-2" id="caseStageBadge"></span>
+                            </div>
+                        </div>
+                        <div class="stage-strip mb-4" id="stageContainer"></div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="p-3 rounded-4 panel-card">
+                                    <div class="small-label">Customer</div>
+                                    <div class="fw-bold" id="customerName"></div><small class="text-muted"
+                                        id="customerCode"></small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 rounded-4 panel-card">
+                                    <div class="small-label">Current Actor</div>
+                                    <div class="fw-bold" id="assignedActor"></div><small class="text-muted"
+                                        id="currentTaskText"></small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 rounded-4 panel-card">
+                                    <div class="small-label">Stage Aging</div>
+                                    <div class="fw-bold" id="stageAging"></div><small class="text-muted">Reporting
+                                        only</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="modules-panel" class="panel-card p-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3 gap-3 flex-wrap">
+                        <div>
+                            <h4 class="fw-bold mb-1">Current Task Modules</h4>
+                            <p class="text-muted mb-0">Modules are tab-wise. For now, only mandatory fields are editable
+                                for the assigned actor.</p>
+                        </div><button class="btn btn-tata btn-sm hidden" id="saveCaseBtn"><i
+                                class="bi bi-floppy me-1"></i>Save Case Changes</button>
+                    </div>
+                    <div id="actionLockNote"></div>
+                    <div id="validationAlert"></div>
+                    <ul class="nav nav-tabs mb-3" id="moduleTabs"></ul>
+                    <div id="moduleContentContainer"></div>
+                </section>
+                <section class="panel-card p-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3 gap-3 flex-wrap">
+                        <div>
+                            <h4 class="fw-bold mb-1">Current Task</h4>
+                            <p class="text-muted mb-0">Only the active/default task is shown here — not the full task
+                                list.</p>
+                        </div>
+                    </div>
+                    <div class="field-card">
+                        <div class="d-flex justify-content-between gap-3 flex-wrap">
+                            <div><span class="badge badge-soft-blue rounded-pill" id="taskActorBadge"></span>
+                                <h5 class="fw-bold mt-2 mb-1" id="taskNameHeading"></h5><small class="text-muted"
+                                    id="taskNextText"></small>
+                            </div>
+                            <div>
+                                <div class="small-label">System Intervention</div>
+                                <div class="fw-semibold" id="systemInterventionText"></div>
+                            </div>
+                        </div>
+                        <div class="mt-3" id="actionContainer"></div>
+                        <div class="task-collab">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="small-label mb-2">Comments</div>
+                                    <div class="vstack gap-2 mb-3" id="currentTaskComments"></div><textarea
+                                        class="form-control" id="taskCommentInput"
+                                        placeholder="Add comment for current task..."></textarea><button
+                                        class="btn btn-outline-tata btn-sm mt-2" id="addCommentBtn"><i
+                                            class="bi bi-chat-left-text me-1"></i>Add Comment</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="small-label mb-2">Attachments</div>
+                                    <div class="vstack gap-2 mb-3" id="currentTaskAttachments"></div>
+                                    <div class="d-flex gap-2"><input type="file" class="form-control"
+                                            id="taskAttachmentInput"><button class="btn btn-outline-tata btn-sm"
+                                            id="addAttachmentBtn">Add</button></div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                <section id="audit" class="panel-card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0">Activity Timeline</h5><button class="btn btn-outline-tata btn-sm"
+                            id="addNoteBtn"><i class="bi bi-plus-lg me-1"></i>Add Note</button>
+                    </div>
+                    <div class="timeline" id="timelineContainer"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="caseToast" class="toast align-items-center text-bg-dark border-0">
+            <div class="d-flex">
+                <div class="toast-body" id="caseToastBody">Saved.</div><button type="button"
+                    class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const DEFAULT_SCHEMA = {
+            version: 5,
+            intentMappers: [
+                {
+                    intentMapperId: "PE_RFQ_NB_001",
+                    displayName: "P&E RFQ Request",
+                    domain: "Commercial Lines",
+                    lob: "Property",
+                    productName: "P&E",
+                    intent: "RFQ",
+                    subIntent: "New Business",
+                    workflowId: "WF-PE-RFQ-001",
+                    defaultOwner: "Sales",
+                    status: "Draft",
+                    version: "v1",
+                    mappedModuleIds: [
+                        "mod_basic_info",
+                        "mod_client_info",
+                        "mod_address_contact",
+                        "mod_expiring_policy",
+                        "mod_documents",
+                        "mod_uw_review",
+                        "mod_uw_risk",
+                        "mod_uw_routing",
+                        "mod_ri_review",
+                        "mod_re_survey",
+                        "mod_quote_details",
+                        "mod_proposal_pack",
+                        "mod_payment_kyc",
+                        "mod_policy_issue"
+                    ],
+                    stageTaskMapId: "STM_PE_RFQ_NB_001"
+                }
+            ],
+            modules: [
+                {
+                    moduleId: "mod_basic_info",
+                    moduleName: "Basic Information",
+                    moduleDescription: "Sales lead creation basics.",
+                    fields: [
+                        {
+                            fieldName: "rmCode",
+                            displayName: "RM code",
+                            placeholderName: "Auto from login",
+                            dataType: "Display Field",
+                            validationRule: "Auto-populated basis login",
+                            defaultValue: "RM12345",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "branchLocation",
+                            displayName: "Branch Location",
+                            placeholderName: "Auto from login",
+                            dataType: "Display Field",
+                            validationRule: "Auto-populated basis login",
+                            defaultValue: "Gurugram",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "policyType",
+                            displayName: "Policy Type",
+                            placeholderName: "Select policy type",
+                            dataType: "Dropdown",
+                            validationRule: "New Business / Renewal / Endorsement",
+                            defaultValue: "New Business",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "lanContractNo",
+                            displayName: "LAN/Contract No.",
+                            placeholderName: "Enter LAN / Contract No.",
+                            dataType: "Textbox",
+                            validationRule: "Alphanumeric, special chars, upto 10",
+                            defaultValue: "",
+                            required: "No",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_client_info",
+                    moduleName: "Client Information",
+                    moduleDescription: "Customer type, account type and insured details.",
+                    fields: [
+                        {
+                            fieldName: "customerType",
+                            displayName: "Customer Type",
+                            placeholderName: "Select customer type",
+                            dataType: "Dropdown",
+                            validationRule: "Individual / Organization",
+                            defaultValue: "Organization",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "accountType",
+                            displayName: "Account Type",
+                            placeholderName: "Select account type",
+                            dataType: "Dropdown",
+                            validationRule: "MAP / CAP",
+                            defaultValue: "Corporate Account Practice",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "accountCategory",
+                            displayName: "Account Category",
+                            placeholderName: "Select account category",
+                            dataType: "Dropdown",
+                            validationRule: "Indian Corporate / Public Sector / Tata Group / MNC",
+                            defaultValue: "",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "businessInsured",
+                            displayName: "Business of the Insured",
+                            placeholderName: "Enter business of the insured",
+                            dataType: "Textbox",
+                            validationRule: "Alphanumeric",
+                            defaultValue: "",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "insuredName",
+                            displayName: "Name of Proposer / Insured",
+                            placeholderName: "Enter insured name",
+                            dataType: "Textbox",
+                            validationRule: "Max 20 chars",
+                            defaultValue: "ABC Logistics Pvt Ltd",
+                            required: "Yes",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_address_contact",
+                    moduleName: "Address & Contact",
+                    moduleDescription: "Communication address and contact details.",
+                    fields: [
+                        {
+                            fieldName: "address1",
+                            displayName: "Communication Address 1",
+                            placeholderName: "Address line 1",
+                            dataType: "Textbox",
+                            validationRule: "Alphanumeric upto 2000",
+                            defaultValue: "",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "pinCode",
+                            displayName: "Pin Code",
+                            placeholderName: "Enter pin code",
+                            dataType: "Textbox",
+                            validationRule: "6 digit pincode",
+                            defaultValue: "122001",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "district",
+                            displayName: "District",
+                            placeholderName: "Auto from pincode",
+                            dataType: "Display Field",
+                            validationRule: "System generated basis pin code",
+                            defaultValue: "Gurugram",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "mobileNumber",
+                            displayName: "Mobile Number",
+                            placeholderName: "Enter mobile number",
+                            dataType: "Textbox",
+                            validationRule: "10 digit mobile number",
+                            defaultValue: "",
+                            required: "Yes",
+                            isSensitive: "Yes"
+                        },
+                        {
+                            fieldName: "emailId",
+                            displayName: "Email ID",
+                            placeholderName: "Enter email ID",
+                            dataType: "Textbox",
+                            validationRule: "Email format",
+                            defaultValue: "",
+                            required: "Yes",
+                            isSensitive: "Yes"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_expiring_policy",
+                    moduleName: "Expiring Policy",
+                    moduleDescription: "Expiring policy details.",
+                    fields: [
+                        {
+                            fieldName: "expiringInsurer",
+                            displayName: "Expiring Insurer Details",
+                            placeholderName: "Enter expiring insurer details",
+                            dataType: "Textbox",
+                            validationRule: "Visible for New Business / Renewal",
+                            defaultValue: "",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "policyPeriodFrom",
+                            displayName: "Policy Period: From",
+                            placeholderName: "Select start date",
+                            dataType: "Date",
+                            validationRule: "Visible for New Business / Renewal",
+                            defaultValue: "2025-04-01",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "policyPeriodTo",
+                            displayName: "Policy Period: To",
+                            placeholderName: "Select end date",
+                            dataType: "Date",
+                            validationRule: "Visible for New Business / Renewal",
+                            defaultValue: "2026-03-31",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "expiringPremium",
+                            displayName: "Expiring Premium (without taxes)",
+                            placeholderName: "Enter premium",
+                            dataType: "Textbox",
+                            validationRule: "Numeric",
+                            defaultValue: "1875000",
+                            required: "No",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_documents",
+                    moduleName: "Documents",
+                    moduleDescription: "Reusable upload/document module.",
+                    fields: [
+                        {
+                            fieldName: "documentUpload",
+                            displayName: "Document upload",
+                            placeholderName: "Upload document",
+                            dataType: "File",
+                            validationRule: "PDF/JPG/PNG",
+                            defaultValue: "NA",
+                            required: "No",
+                            isSensitive: "Yes"
+                        },
+                        {
+                            fieldName: "documentDescription",
+                            displayName: "Document description",
+                            placeholderName: "Enter description",
+                            dataType: "Textbox",
+                            validationRule: "Alphanumeric",
+                            defaultValue: "NA",
+                            required: "No",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_uw_review",
+                    moduleName: "UW Review Summary",
+                    moduleDescription: "UW review summary fields.",
+                    fields: [
+                        {
+                            fieldName: "lob",
+                            displayName: "LOB",
+                            placeholderName: "Select LOB",
+                            dataType: "Dropdown",
+                            validationRule: "Property / Energy / Construction",
+                            defaultValue: "Property",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "product",
+                            displayName: "Product",
+                            placeholderName: "Select product",
+                            dataType: "Dropdown",
+                            validationRule: "Master driven product selection",
+                            defaultValue: "IndustrialAllRiskInsurance",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "currencyType",
+                            displayName: "Currency Type",
+                            placeholderName: "Select currency",
+                            dataType: "Dropdown",
+                            validationRule: "INR / USD / others",
+                            defaultValue: "INR",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "quoteValidity",
+                            displayName: "Quote Validity",
+                            placeholderName: "Enter validity",
+                            dataType: "Textbox",
+                            validationRule: "Policy expiry date OR 15 days from approval date whichever earlier",
+                            defaultValue: "15",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "totalSumInsured",
+                            displayName: "Total Sum Insured",
+                            placeholderName: "Enter TSI",
+                            dataType: "Textbox",
+                            validationRule: "PD + BI sum",
+                            defaultValue: "1500000000",
+                            required: "Yes",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_uw_risk",
+                    moduleName: "UW Risk Inputs",
+                    moduleDescription: "UW risk info, occupancy and ratings.",
+                    fields: [
+                        {
+                            fieldName: "occupancy",
+                            displayName: "Occupancy",
+                            placeholderName: "Select occupancy",
+                            dataType: "Dropdown",
+                            validationRule: "Master driven basis product",
+                            defaultValue: "Warehouse / Logistics",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "businessDetails",
+                            displayName: "Business Details",
+                            placeholderName: "Enter business details",
+                            dataType: "Textbox",
+                            validationRule: "Alphanumeric upto 1000",
+                            defaultValue: "Multi-location logistics warehouses across NCR.",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "riskEngineeringRating",
+                            displayName: "Risk Rating basis Risk Engineering",
+                            placeholderName: "Select RE rating",
+                            dataType: "Dropdown",
+                            validationRule: "Excellent / Good / Standard / Below Average / Poor",
+                            defaultValue: "Standard/Average",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "underwritingRating",
+                            displayName: "Underwriting Rating",
+                            placeholderName: "Select UW rating",
+                            dataType: "Dropdown",
+                            validationRule: "Excellent / Good / Standard / Below Average / Poor",
+                            defaultValue: "Good",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "uwRecommendation",
+                            displayName: "UW Recommendation",
+                            placeholderName: "Enter recommendation",
+                            dataType: "Textbox",
+                            validationRule: "Free text",
+                            defaultValue: "Proceed subject to RE/RI review if required.",
+                            required: "Yes",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_uw_routing",
+                    moduleName: "Referral & Decision",
+                    moduleDescription: "Routing, SAF/FAC and decision controls.",
+                    fields: [
+                        {
+                            fieldName: "riInvolved",
+                            displayName: "Is RI involved",
+                            placeholderName: "Select yes/no",
+                            dataType: "Checkbox",
+                            validationRule: "Disable create quote until RI approves if selected",
+                            defaultValue: "No",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "fac",
+                            displayName: "FAC",
+                            placeholderName: "Select yes/no",
+                            dataType: "Checkbox",
+                            validationRule: "FAC flag",
+                            defaultValue: "No",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "specialAcceptanceForm",
+                            displayName: "Special Acceptance Form",
+                            placeholderName: "Select yes/no",
+                            dataType: "Checkbox",
+                            validationRule: "SAF flag",
+                            defaultValue: "No",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "reasonForReferral",
+                            displayName: "Reason for referral",
+                            placeholderName: "Enter reason",
+                            dataType: "Textbox",
+                            validationRule: "Free text",
+                            defaultValue: "",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "sendBackTo",
+                            displayName: "Send back to",
+                            placeholderName: "Select destination",
+                            dataType: "Dropdown",
+                            validationRule: "Individual UW / UW Pool / Sales",
+                            defaultValue: "Sales",
+                            required: "No",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_ri_review",
+                    moduleName: "RI Review",
+                    moduleDescription: "RI review inputs.",
+                    fields: [
+                        {
+                            fieldName: "proposedRate",
+                            displayName: "Proposed Rate",
+                            placeholderName: "Enter proposed rate",
+                            dataType: "Textbox",
+                            validationRule: "Numeric",
+                            defaultValue: "",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "proposedDeductible",
+                            displayName: "Proposed Deductible",
+                            placeholderName: "Enter deductible",
+                            dataType: "Textbox",
+                            validationRule: "Numeric",
+                            defaultValue: "",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "proposedPremium",
+                            displayName: "Proposed Premium",
+                            placeholderName: "Enter premium",
+                            dataType: "Textbox",
+                            validationRule: "Numeric",
+                            defaultValue: "",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "riAction",
+                            displayName: "Action",
+                            placeholderName: "Query / Submit",
+                            dataType: "Dropdown",
+                            validationRule: "Query / Submit",
+                            defaultValue: "Submit",
+                            required: "Yes",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_re_survey",
+                    moduleName: "RE Survey & Assessment",
+                    moduleDescription: "Risk engineering review module.",
+                    fields: [
+                        {
+                            fieldName: "typeOfSurvey",
+                            displayName: "Type of Survey",
+                            placeholderName: "Select survey type",
+                            dataType: "Dropdown",
+                            validationRule: "Prospect / Existing / Resurvey / Post Loss / VAS",
+                            defaultValue: "Prospect Business – First Survey",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "surveyRequirement",
+                            displayName: "Survey Requirement",
+                            placeholderName: "Select requirement",
+                            dataType: "Dropdown",
+                            validationRule: "Master list from RE sheet",
+                            defaultValue: "UW Requirement for Risk Assessment",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "occupancyType",
+                            displayName: "Occupancy Type",
+                            placeholderName: "Enter occupancy type",
+                            dataType: "Textbox",
+                            validationRule: "Alphanumeric",
+                            defaultValue: "Warehouse / Logistics",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "locationAddress",
+                            displayName: "Location Address",
+                            placeholderName: "Enter location address",
+                            dataType: "Textbox",
+                            validationRule: "Alphanumeric",
+                            defaultValue: "Gurugram, Haryana",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "riskRatingRE",
+                            displayName: "Risk Rating basis Risk Engineering",
+                            placeholderName: "Select RE rating",
+                            dataType: "Dropdown",
+                            validationRule: "Excellent / Good / Standard / Below Average / Poor",
+                            defaultValue: "Standard/Average",
+                            required: "Yes",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_quote_details",
+                    moduleName: "Quote Details",
+                    moduleDescription: "Quote stage fields.",
+                    fields: [
+                        {
+                            fieldName: "premium",
+                            displayName: "Premium",
+                            placeholderName: "Enter premium",
+                            dataType: "Textbox",
+                            validationRule: "Numeric",
+                            defaultValue: "2480000",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "proposedRate",
+                            displayName: "Proposed Rate (Per Mille)",
+                            placeholderName: "Enter rate",
+                            dataType: "Textbox",
+                            validationRule: "Numeric",
+                            defaultValue: "0.42",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "mdProposedExcess",
+                            displayName: "MD Proposed Excess",
+                            placeholderName: "Enter MD excess",
+                            dataType: "Textbox",
+                            validationRule: "Alphanumeric",
+                            defaultValue: "500000",
+                            required: "No",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_proposal_pack",
+                    moduleName: "Proposal Pack",
+                    moduleDescription: "Proposal stage data object.",
+                    fields: [
+                        {
+                            fieldName: "proposalVersion",
+                            displayName: "Proposal Version",
+                            placeholderName: "Enter version",
+                            dataType: "Textbox",
+                            validationRule: "Free text",
+                            defaultValue: "V1",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "coverageSummary",
+                            displayName: "Coverage Summary",
+                            placeholderName: "Enter summary",
+                            dataType: "Textbox",
+                            validationRule: "Free text",
+                            defaultValue: "MD + BI",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "terms",
+                            displayName: "Terms",
+                            placeholderName: "Enter terms",
+                            dataType: "Textbox",
+                            validationRule: "Free text",
+                            defaultValue: "Standard corporate property wording",
+                            required: "Yes",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_payment_kyc",
+                    moduleName: "Payment & KYC",
+                    moduleDescription: "Payment stage fields.",
+                    fields: [
+                        {
+                            fieldName: "kycStatus",
+                            displayName: "KYC Status",
+                            placeholderName: "KYC status",
+                            dataType: "Display Field",
+                            validationRule: "System / sales driven",
+                            defaultValue: "Pending",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "paymentLink",
+                            displayName: "Payment Link",
+                            placeholderName: "Payment URL",
+                            dataType: "Display Field",
+                            validationRule: "System generated if KYC needed",
+                            defaultValue: "Not generated",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "paymentStatus",
+                            displayName: "Payment Status",
+                            placeholderName: "Select payment status",
+                            dataType: "Dropdown",
+                            validationRule: "Pending / Initiated / Received",
+                            defaultValue: "Pending",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "salesFollowup",
+                            displayName: "Sales Follow-up",
+                            placeholderName: "Enter follow-up plan",
+                            dataType: "Textbox",
+                            validationRule: "Free text",
+                            defaultValue: "",
+                            required: "Yes",
+                            isSensitive: "No"
+                        }
+                    ]
+                },
+                {
+                    moduleId: "mod_policy_issue",
+                    moduleName: "Policy Issue",
+                    moduleDescription: "Policy issuance fields.",
+                    fields: [
+                        {
+                            fieldName: "policyNumber",
+                            displayName: "Policy Number",
+                            placeholderName: "Policy number",
+                            dataType: "Display Field",
+                            validationRule: "System generated",
+                            defaultValue: "Pending issuance",
+                            required: "No",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "policyInception",
+                            displayName: "Policy Inception",
+                            placeholderName: "Select inception date",
+                            dataType: "Date",
+                            validationRule: "Date",
+                            defaultValue: "2026-04-01",
+                            required: "Yes",
+                            isSensitive: "No"
+                        },
+                        {
+                            fieldName: "policyExpiry",
+                            displayName: "Policy Expiry",
+                            placeholderName: "Select expiry date",
+                            dataType: "Date",
+                            validationRule: "Date",
+                            defaultValue: "2027-03-31",
+                            required: "Yes",
+                            isSensitive: "No"
+                        }
+                    ]
+                }
+            ],
+            stageTaskMaps: [
+                {
+                    stageTaskMapId: "STM_PE_RFQ_NB_001",
+                    stages: [
+                        {
+                            stageId: "customer_creation",
+                            stageName: "Customer Creation",
+                            order: 1,
+                            tasks: [
+                                {
+                                    taskId: "create_customer",
+                                    taskName: "Create_Customer",
+                                    actor: "Sales",
+                                    isDefault: true,
+                                    nextActions: ["Next stage"],
+                                    systemIntervention: "",
+                                    moduleIds: [
+                                        "mod_basic_info",
+                                        "mod_client_info",
+                                        "mod_address_contact",
+                                        "mod_expiring_policy",
+                                        "mod_documents"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            stageId: "under_review",
+                            stageName: "Under Review",
+                            order: 2,
+                            tasks: [
+                                {
+                                    taskId: "refer_to_uw",
+                                    taskName: "Refer to UW",
+                                    actor: "UW",
+                                    isDefault: true,
+                                    nextActions: ["RI", "RE", "reject", "approve", "Sales"],
+                                    systemIntervention: "",
+                                    moduleIds: ["mod_uw_review", "mod_uw_risk", "mod_uw_routing", "mod_documents"]
+                                },
+                                {
+                                    taskId: "refer_to_ri",
+                                    taskName: "Refer to RI",
+                                    actor: "RI",
+                                    isDefault: false,
+                                    nextActions: ["UW"],
+                                    systemIntervention: "",
+                                    moduleIds: ["mod_ri_review", "mod_documents"]
+                                },
+                                {
+                                    taskId: "refer_to_re",
+                                    taskName: "Refer to RE",
+                                    actor: "RE",
+                                    isDefault: false,
+                                    nextActions: ["UW"],
+                                    systemIntervention: "",
+                                    moduleIds: ["mod_re_survey", "mod_documents"]
+                                },
+                                {
+                                    taskId: "refer_to_sales",
+                                    taskName: "Refer to Sales",
+                                    actor: "Sales",
+                                    isDefault: false,
+                                    nextActions: ["UW", "reject", "approve"],
+                                    systemIntervention: "",
+                                    moduleIds: ["mod_client_info", "mod_address_contact", "mod_documents"]
+                                }
+                            ]
+                        },
+                        {
+                            stageId: "quote",
+                            stageName: "Quote",
+                            order: 3,
+                            tasks: [
+                                {
+                                    taskId: "quote_refer_uw",
+                                    taskName: "Refer to UW",
+                                    actor: "UW",
+                                    isDefault: true,
+                                    nextActions: ["Senior_UW", "Corporate_UW", "Sales", "Next stage"],
+                                    systemIntervention: "Generate quote -> this will generate quote and send to UW",
+                                    moduleIds: ["mod_quote_details", "mod_documents"]
+                                },
+                                {
+                                    taskId: "quote_refer_sales",
+                                    taskName: "Refer to Sales",
+                                    actor: "Sales",
+                                    isDefault: false,
+                                    nextActions: ["UW"],
+                                    systemIntervention: "",
+                                    moduleIds: ["mod_quote_details", "mod_documents"]
+                                }
+                            ]
+                        },
+                        {
+                            stageId: "proposal",
+                            stageName: "Proposal",
+                            order: 4,
+                            tasks: [
+                                {
+                                    taskId: "proposal_refer_sales",
+                                    taskName: "Refer to Sales",
+                                    actor: "Sales",
+                                    isDefault: true,
+                                    nextActions: ["Next stage"],
+                                    systemIntervention: "",
+                                    moduleIds: ["mod_proposal_pack", "mod_documents"]
+                                },
+                                {
+                                    taskId: "proposal_refer_uw",
+                                    taskName: "Refer to UW",
+                                    actor: "UW",
+                                    isDefault: false,
+                                    nextActions: ["Sales", "approve", "reject"],
+                                    systemIntervention: "",
+                                    moduleIds: ["mod_proposal_pack", "mod_uw_routing"]
+                                }
+                            ]
+                        },
+                        {
+                            stageId: "payment",
+                            stageName: "Payment",
+                            order: 5,
+                            tasks: [
+                                {
+                                    taskId: "kyc_check",
+                                    taskName: "KYC_Check",
+                                    actor: "System",
+                                    isDefault: true,
+                                    nextActions: ["KYC_Needed", "Payment initiated"],
+                                    systemIntervention: "Validate KYC",
+                                    moduleIds: ["mod_payment_kyc"]
+                                },
+                                {
+                                    taskId: "kyc_needed",
+                                    taskName: "KYC_Needed",
+                                    actor: "Sales",
+                                    isDefault: false,
+                                    nextActions: ["Payment initiated"],
+                                    systemIntervention: "If KYC does not exist",
+                                    moduleIds: ["mod_payment_kyc", "mod_documents"]
+                                },
+                                {
+                                    taskId: "payment_initiated",
+                                    taskName: "Payment initiated",
+                                    actor: "Sales",
+                                    isDefault: false,
+                                    nextActions: ["Payment received"],
+                                    systemIntervention: "Payment link generated",
+                                    moduleIds: ["mod_payment_kyc"]
+                                }
+                            ]
+                        },
+                        {
+                            stageId: "policy_issued",
+                            stageName: "Policy issued",
+                            order: 6,
+                            tasks: [
+                                {
+                                    taskId: "closed",
+                                    taskName: "Closed",
+                                    actor: "Closed",
+                                    isDefault: true,
+                                    nextActions: ["Closed"],
+                                    systemIntervention: "",
+                                    moduleIds: ["mod_policy_issue"]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const SCHEMA_STORAGE_KEY = "tataAigSchemaConfigV5";
+
+        function deepClone(obj) {
+            return JSON.parse(JSON.stringify(obj));
+        }
+
+        function loadSchema() {
+            try {
+                const raw = localStorage.getItem(SCHEMA_STORAGE_KEY);
+                if (raw) {
+                    return JSON.parse(raw);
+                }
+            } catch (e) {
+                console.warn("Failed to load schema from localStorage:", e);
+            }
+
+            localStorage.setItem(SCHEMA_STORAGE_KEY, JSON.stringify(DEFAULT_SCHEMA));
+            return deepClone(DEFAULT_SCHEMA);
+        }
+
+        function saveSchema(schema) {
+            try {
+                localStorage.setItem(SCHEMA_STORAGE_KEY, JSON.stringify(schema));
+            } catch (e) {
+                console.warn("Failed to save schema:", e);
+            }
+        }
+
+        function getModule(schema, moduleId) {
+            return (schema.modules || []).find(m => m.moduleId === moduleId) || null;
+        }
+
+        function uid(prefix = "id") {
+            return `${prefix}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const CASE_STORAGE_KEY = 'tataAigCaseRuntimeV5';
+
+        const DEFAULT_CASE = {
+            caseId: 'CRM-2026-001024',
+            title: 'Property & Energy – New Business RFQ',
+            customer: 'ABC Logistics Pvt Ltd',
+            customerCode: 'CUST-98231',
+            sales: 'Rahul Sharma',
+            age: '0d 6h',
+            brief: 'Runtime modules and fields are driven by configuration for this case.',
+            currentStageId: 'customer_creation',
+            currentTaskId: 'create_customer',
+            taskComments: {},
+            taskAttachments: {},
+            fieldValues: {},
+            timeline: [
+                { title: 'Case created', detail: 'Sales created lead with customer and client details.' },
+                { title: 'Configuration-linked rendering', detail: 'Modules and fields now load from admin configuration.' }
+            ]
+        };
+
+        function loadCase() {
+            try {
+                const raw = localStorage.getItem(CASE_STORAGE_KEY);
+                if (raw) return JSON.parse(raw);
+            } catch (e) {
+                console.error('Failed to load case from storage:', e);
+            }
+
+            localStorage.setItem(CASE_STORAGE_KEY, JSON.stringify(DEFAULT_CASE));
+            return JSON.parse(JSON.stringify(DEFAULT_CASE));
+        }
+
+        function saveCase() {
+            localStorage.setItem(CASE_STORAGE_KEY, JSON.stringify(caseRuntime));
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function escapeAttr(value) {
+            return escapeHtml(value);
+        }
+
+        let schema = typeof loadSchema === 'function' ? loadSchema() : {};
+        let caseRuntime = loadCase();
+        let pending = {};
+        let currentRole = 'UW';
+        let activeModuleId = null;
+
+        const toastEl = document.getElementById('caseToast');
+        const toast = toastEl && typeof bootstrap !== 'undefined' ? new bootstrap.Toast(toastEl) : null;
+
+        function note(message) {
+            if (typeof caseToastBody !== 'undefined' && caseToastBody) {
+                caseToastBody.textContent = message;
+            }
+            if (toast) {
+                toast.show();
+            } else {
+                console.log(message);
+            }
+        }
+
+        function splitActors(text) {
+            return String(text || '')
+                .split(/[\/,]/)
+                .map(x => x.trim())
+                .filter(Boolean);
+        }
+
+        function intent() {
+            return (schema.intentMappers || [])[0] || {};
+        }
+
+        function mapCfg() {
+            return (schema.stageTaskMaps || [])[0] || { stages: [] };
+        }
+
+        function stage() {
+            const stages = mapCfg().stages || [];
+            return stages.find(s => s.stageId === caseRuntime.currentStageId) || stages[0] || { tasks: [] };
+        }
+
+        function task() {
+            const st = stage();
+            const tasks = st.tasks || [];
+            return (
+                tasks.find(t => t.taskId === caseRuntime.currentTaskId) ||
+                tasks.find(t => t.isDefault) ||
+                tasks[0] ||
+                { moduleIds: [], nextActions: [], actor: '' }
+            );
+        }
+
+        function canCurrentActorAct() {
+            return splitActors(task().actor)
+                .map(x => x.toLowerCase())
+                .includes(String(currentRole).toLowerCase());
+        }
+
+        function makeFieldKey(moduleId, fieldName) {
+            return `${moduleId}|${fieldName}`;
+        }
+
+        function fval(moduleId, fieldName, defaultValue) {
+            const key = makeFieldKey(moduleId, fieldName);
+            return Object.prototype.hasOwnProperty.call(pending, key)
+                ? pending[key]
+                : (caseRuntime.fieldValues[key] ?? defaultValue);
+        }
+
+        function appendTimeline(title, detail) {
+            caseRuntime.timeline = caseRuntime.timeline || [];
+            caseRuntime.timeline.unshift({ title, detail });
+            saveCase();
+            renderTimeline();
+        }
+
+        function renderTimeline() {
+            if (typeof timelineContainer === 'undefined' || !timelineContainer) return;
+
+            timelineContainer.innerHTML = (caseRuntime.timeline || [])
+                .map(item => `
+        <div class="timeline-item">
+          <div class="fw-bold">${escapeHtml(item.title)}</div>
+          <small class="text-muted">${escapeHtml(item.detail)}</small>
+        </div>
+      `)
+                .join('');
+        }
+
+        function renderSummary() {
+            if (typeof caseBadge !== 'undefined' && caseBadge) {
+                caseBadge.textContent = caseRuntime.caseId || '';
+            }
+
+            if (typeof caseIntentBadge !== 'undefined' && caseIntentBadge) {
+                caseIntentBadge.textContent = `${intent().intent || ''} · ${intent().subIntent || ''}`;
+            }
+
+            if (typeof caseProductBadge !== 'undefined' && caseProductBadge) {
+                caseProductBadge.textContent = intent().productName || '';
+            }
+
+            if (typeof caseTitle !== 'undefined' && caseTitle) {
+                caseTitle.textContent = caseRuntime.title || '';
+            }
+
+            if (typeof caseSubtitle !== 'undefined' && caseSubtitle) {
+                caseSubtitle.textContent =
+                    `Domain: ${intent().domain || ''} · LOB: ${intent().lob || ''} · Sales Rep: ${caseRuntime.sales || ''}`;
+            }
+
+            if (typeof caseStageBadge !== 'undefined' && caseStageBadge) {
+                caseStageBadge.textContent = stage().stageName || '';
+            }
+
+            if (typeof customerName !== 'undefined' && customerName) {
+                customerName.textContent = caseRuntime.customer || '';
+            }
+
+            if (typeof customerCode !== 'undefined' && customerCode) {
+                customerCode.textContent = caseRuntime.customerCode || '';
+            }
+
+            if (typeof assignedActor !== 'undefined' && assignedActor) {
+                assignedActor.textContent = task().actor || '';
+            }
+
+            if (typeof currentTaskText !== 'undefined' && currentTaskText) {
+                currentTaskText.textContent = `Current task: ${task().taskName || ''}`;
+            }
+
+            if (typeof stageAging !== 'undefined' && stageAging) {
+                stageAging.textContent = caseRuntime.age || '';
+            }
+
+            if (typeof taskActorBadge !== 'undefined' && taskActorBadge) {
+                taskActorBadge.textContent = task().actor || '';
+            }
+
+            if (typeof taskNameHeading !== 'undefined' && taskNameHeading) {
+                taskNameHeading.textContent = task().taskName || '';
+            }
+
+            if (typeof taskNextText !== 'undefined' && taskNextText) {
+                taskNextText.textContent = `Next options: ${(task().nextActions || []).join(', ') || 'NA'}`;
+            }
+
+            if (typeof systemInterventionText !== 'undefined' && systemInterventionText) {
+                systemInterventionText.textContent = task().systemIntervention || 'NA';
+            }
+
+            if (typeof actionLockNote !== 'undefined' && actionLockNote) {
+                actionLockNote.innerHTML = canCurrentActorAct()
+                    ? ''
+                    : `
+          <div class="task-note mb-3">
+            <strong>Action locked.</strong> Current actor is <b>${escapeHtml(task().actor || 'NA')}</b>.
+            ${escapeHtml(currentRole)} can view details but cannot edit or move the case.
+          </div>
+        `;
+            }
+        }
+
+        function renderStageStrip() {
+            if (typeof stageContainer === 'undefined' || !stageContainer) return;
+
+            const currentStage = stage();
+            stageContainer.innerHTML = (mapCfg().stages || [])
+                .map(s => {
+                    const cls = s.stageId === currentStage.stageId ? 'active' : (s.order < currentStage.order ? 'done' : '');
+                    const meta = s.stageId === currentStage.stageId ? 'Active' : (s.order < currentStage.order ? 'Completed' : 'Pending');
+                    const metaClass = s.stageId === currentStage.stageId ? 'text-primary' : (s.order < currentStage.order ? 'text-success' : 'text-muted');
+
+                    return `
+          <div class="stage-step ${cls}">
+            <div class="small-label">Stage ${escapeHtml(s.order)}</div>
+            <div class="fw-bold">${escapeHtml(s.stageName)}</div>
+            <small class="${metaClass}">${meta}</small>
+          </div>
+        `;
+                })
+                .join('');
+        }
+
+        function resolveModules() {
+            if (typeof getModule !== 'function') return [];
+            return (task().moduleIds || [])
+                .map(mid => getModule(schema, mid))
+                .filter(Boolean);
+        }
+
+        function markField(key, value) {
+            pending[key] = value;
+
+            if (typeof saveCaseBtn !== 'undefined' && saveCaseBtn) {
+                saveCaseBtn.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('[data-key]').forEach(el => {
+                if (el.dataset.key === key) {
+                    el.classList.remove('error-ring');
+                }
+            });
+
+            if (typeof validationAlert !== 'undefined' && validationAlert) {
+                validationAlert.innerHTML = '';
+            }
+        }
+
+        function validateAllRequiredFields() {
+            const missing = [];
+
+            resolveModules().forEach(module => {
+                (module.fields || []).forEach(field => {
+                    const isRequired = field.required === 'Yes';
+                    if (!isRequired) return;
+
+                    const key = makeFieldKey(module.moduleId, field.fieldName);
+                    const value = Object.prototype.hasOwnProperty.call(pending, key)
+                        ? pending[key]
+                        : (caseRuntime.fieldValues[key] ?? field.defaultValue ?? '');
+
+                    if (String(value).trim() === '') {
+                        missing.push({
+                            moduleName: module.moduleName,
+                            displayName: field.displayName,
+                            key
+                        });
+                    }
+                });
+            });
+
+            document.querySelectorAll('[data-key]').forEach(el => {
+                el.classList.remove('error-ring');
+            });
+
+            if (missing.length) {
+                missing.forEach(item => {
+                    const el = document.querySelector(`[data-key="${CSS.escape(item.key)}"]`);
+                    if (el) el.classList.add('error-ring');
+                });
+
+                if (typeof validationAlert !== 'undefined' && validationAlert) {
+                    validationAlert.innerHTML = `
+          <div class="alert alert-danger rounded-4">
+            <strong>Please fill mandatory fields before proceeding.</strong>
+            <div class="mt-2 small">
+              ${missing.map(m => `${escapeHtml(m.moduleName)} → ${escapeHtml(m.displayName)}`).join('<br>')}
+            </div>
+          </div>
+        `;
+                }
+
+                return false;
+            }
+
+            if (typeof validationAlert !== 'undefined' && validationAlert) {
+                validationAlert.innerHTML = '';
+            }
+
+            return true;
+        }
+
+        function saveFields() {
+            if (!canCurrentActorAct()) {
+                note('Only current actor can save changes');
+                return;
+            }
+
+            if (!validateAllRequiredFields()) return;
+
+            Object.keys(pending).forEach(key => {
+                caseRuntime.fieldValues[key] = pending[key];
+            });
+
+            pending = {};
+            saveCase();
+
+            if (typeof saveCaseBtn !== 'undefined' && saveCaseBtn) {
+                saveCaseBtn.classList.add('hidden');
+            }
+
+            appendTimeline('Case changes saved', `${currentRole} saved current task module fields.`);
+            note('Case field values saved');
+            render();
+        }
+
+        function renderModuleTabs() {
+            const modules = resolveModules();
+
+            if (typeof moduleTabs === 'undefined' || !moduleTabs || typeof moduleContentContainer === 'undefined' || !moduleContentContainer) {
+                return;
+            }
+
+            if (!modules.length) {
+                moduleTabs.innerHTML = '';
+                moduleContentContainer.innerHTML = `<div class="text-muted">No modules mapped to current task.</div>`;
+                return;
+            }
+
+            if (!activeModuleId || !modules.find(m => m.moduleId === activeModuleId)) {
+                activeModuleId = modules[0].moduleId;
+            }
+
+            moduleTabs.innerHTML = modules.map(m => `
+      <li class="nav-item">
+        <button
+          type="button"
+          class="nav-link ${m.moduleId === activeModuleId ? 'active' : ''}"
+          onclick="openModuleTab('${escapeAttr(m.moduleId)}')"
+        >
+          ${escapeHtml(m.moduleName)}
+        </button>
+      </li>
+    `).join('');
+
+            renderActiveModule();
+        }
+
+        function openModuleTab(moduleId) {
+            activeModuleId = moduleId;
+            renderModuleTabs();
+        }
+
+        function renderActiveModule() {
+            const modules = resolveModules();
+            const module = modules.find(x => x.moduleId === activeModuleId) || modules[0];
+
+            if (typeof moduleContentContainer === 'undefined' || !moduleContentContainer) return;
+
+            if (!module) {
+                moduleContentContainer.innerHTML = `<div class="text-muted">No module selected.</div>`;
+                return;
+            }
+
+            const canAct = canCurrentActorAct();
+
+            moduleContentContainer.innerHTML = `
+      <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <h6 class="fw-bold mb-0">${escapeHtml(module.moduleName)}</h6>
+            <small class="text-muted">${escapeHtml(module.moduleDescription || '')}</small>
+          </div>
+          <span class="badge text-bg-primary">${(module.fields || []).length} fields</span>
+        </div>
+
+        <div class="module-grid">
+          ${(module.fields || []).map(field => {
+                const value = fval(module.moduleId, field.fieldName, field.defaultValue || '');
+                const mandatory = field.required === 'Yes';
+                const editable = canAct;
+                const req = mandatory ? `<span class="required-star">*</span>` : '';
+                const key = makeFieldKey(module.moduleId, field.fieldName);
+
+                const helper = `
+              ${mandatory
+                        ? `<span class="badge text-bg-danger-subtle text-danger me-2">Mandatory</span>`
+                        : `<span class="badge text-bg-light text-muted me-2">Optional</span>`
+                    }
+              ${escapeHtml(field.dataType || '')} · Validation: ${escapeHtml(field.validationRule || 'NA')}
+            `;
+
+                if (editable) {
+                    return `
+                <div class="field-card editable">
+                  <div class="field-label">${escapeHtml(field.displayName)}${req}</div>
+                  <input
+                    class="field-input"
+                    data-key="${escapeAttr(key)}"
+                    value="${escapeAttr(value)}"
+                    placeholder="${escapeAttr(field.placeholderName || '')}"
+                    oninput="markField('${escapeAttr(key)}', this.value)"
+                  />
+                  <div class="field-helper">${helper}</div>
+                </div>
+              `;
+                }
+
+                return `
+              <div class="field-card">
+                <div class="field-label">${escapeHtml(field.displayName)}${req}</div>
+                <div class="field-value">${value ? escapeHtml(value) : '<span class="text-muted">—</span>'}</div>
+                <div class="field-helper">${helper}</div>
+              </div>
+            `;
+            }).join('')}
+        </div>
+      </div>
+    `;
+        }
+
+        function renderActions() {
+            if (typeof actionContainer === 'undefined' || !actionContainer) return;
+
+            const canAct = canCurrentActorAct();
+
+            actionContainer.innerHTML =
+                (task().nextActions || []).map(next => `
+        <button
+          type="button"
+          class="btn btn-outline-tata btn-sm me-2 mb-2"
+          ${canAct ? '' : 'disabled'}
+          onclick="runNext('${escapeAttr(next)}')"
+        >
+          ${escapeHtml(next)}
+        </button>
+      `).join('') ||
+                `<button type="button" class="btn btn-outline-tata btn-sm" disabled>No actions available</button>`;
+
+            if (typeof saveCaseBtn !== 'undefined' && saveCaseBtn) {
+                saveCaseBtn.classList.toggle('hidden', !canAct || Object.keys(pending).length === 0);
+            }
+
+            if (typeof addCommentBtn !== 'undefined' && addCommentBtn) {
+                addCommentBtn.disabled = !canAct;
+            }
+
+            if (typeof addAttachmentBtn !== 'undefined' && addAttachmentBtn) {
+                addAttachmentBtn.disabled = !canAct;
+            }
+        }
+
+        function taskComments(taskId) {
+            caseRuntime.taskComments[taskId] = caseRuntime.taskComments[taskId] || [];
+            return caseRuntime.taskComments[taskId];
+        }
+
+        function taskAttachments(taskId) {
+            caseRuntime.taskAttachments[taskId] = caseRuntime.taskAttachments[taskId] || [];
+            return caseRuntime.taskAttachments[taskId];
+        }
+
+        function renderCurrentTaskCollab() {
+            const comments = taskComments(task().taskId);
+            const attachments = taskAttachments(task().taskId);
+
+            if (typeof currentTaskComments !== 'undefined' && currentTaskComments) {
+                currentTaskComments.innerHTML = comments.length
+                    ? comments.map(c => `
+          <div class="comment-item">
+            <div class="fw-bold">${escapeHtml(c.author)}</div>
+            <div class="small text-muted mb-1">${escapeHtml(c.time)}</div>
+            <div>${escapeHtml(c.text)}</div>
+          </div>
+        `).join('')
+                    : `<div class="text-muted small">No task comments yet.</div>`;
+            }
+
+            if (typeof currentTaskAttachments !== 'undefined' && currentTaskAttachments) {
+                currentTaskAttachments.innerHTML = attachments.length
+                    ? attachments.map(a => `
+          <div class="attachment-item">
+            <i class="bi bi-paperclip me-2"></i>${escapeHtml(a)}
+          </div>
+        `).join('')
+                    : `<div class="text-muted small">No task attachments yet.</div>`;
+            }
+        }
+
+        function addTaskComment() {
+            if (!canCurrentActorAct()) {
+                note('Only current actor can comment on this task');
+                return;
+            }
+
+            if (typeof taskCommentInput === 'undefined' || !taskCommentInput) return;
+
+            const value = (taskCommentInput.value || '').trim();
+            if (!value) return;
+
+            taskComments(task().taskId).unshift({
+                author: currentRole,
+                text: value,
+                time: new Date().toLocaleString()
+            });
+
+            taskCommentInput.value = '';
+            saveCase();
+            appendTimeline('Task comment added', `${currentRole} added a comment on current task.`);
+            renderCurrentTaskCollab();
+        }
+
+        function addTaskAttachment() {
+            if (!canCurrentActorAct()) {
+                note('Only current actor can attach files on this task');
+                return;
+            }
+
+            if (typeof taskAttachmentInput === 'undefined' || !taskAttachmentInput) return;
+            if (!taskAttachmentInput.files || !taskAttachmentInput.files.length) return;
+
+            taskAttachments(task().taskId).unshift(taskAttachmentInput.files[0].name);
+            taskAttachmentInput.value = '';
+
+            saveCase();
+            appendTimeline('Task attachment added', `${currentRole} added attachment on current task.`);
+            renderCurrentTaskCollab();
+        }
+
+        function runNext(next) {
+            if (!canCurrentActorAct()) {
+                note('Only current actor can take action');
+                return;
+            }
+
+            if (!validateAllRequiredFields()) return;
+
+            const lower = String(next).toLowerCase();
+
+            if (lower === 'next stage') {
+                const stages = mapCfg().stages || [];
+                const currentIndex = stages.findIndex(s => s.stageId === stage().stageId);
+
+                if (currentIndex < stages.length - 1) {
+                    caseRuntime.currentStageId = stages[currentIndex + 1].stageId;
+
+                    const nextStageObj = stage();
+                    const defaultTask = (nextStageObj.tasks || []).find(t => t.isDefault) || (nextStageObj.tasks || [])[0];
+
+                    caseRuntime.currentTaskId = defaultTask ? defaultTask.taskId : '';
+                    appendTimeline('Moved to next stage', `Case moved to ${nextStageObj.stageName}.`);
+                    saveCase();
+                    render();
+                }
+                return;
+            }
+
+            if (lower === 'closed' || lower === 'reject') {
+                appendTimeline('Case closed', `Case moved to closed state by ${currentRole}.`);
+                note('Case closed in prototype');
+                return;
+            }
+
+            const st = stage();
+            const targetTask = (st.tasks || []).find(t =>
+                splitActors(t.actor).map(x => x.toLowerCase()).includes(lower) ||
+                String(t.taskName || '').toLowerCase().includes(lower)
+            );
+
+            if (targetTask) {
+                caseRuntime.currentTaskId = targetTask.taskId;
+                appendTimeline('Task changed', `Moved to task ${targetTask.taskName} for actor ${targetTask.actor}.`);
+                saveCase();
+                render();
+                return;
+            }
+
+            if (lower === 'approve') {
+                runNext('Next stage');
+            }
+        }
+
+        if (typeof roleSwitcher !== 'undefined' && roleSwitcher) {
+            roleSwitcher.onchange = function () {
+                currentRole = this.value;
+
+                if (typeof roleAvatar !== 'undefined' && roleAvatar) {
+                    roleAvatar.textContent = this.value === 'Sales' ? 'SA' : this.value.substring(0, 2).toUpperCase();
+                }
+
+                render();
+            };
+        }
+
+        if (typeof reloadConfigBtn !== 'undefined' && reloadConfigBtn) {
+            reloadConfigBtn.onclick = function () {
+                schema = typeof loadSchema === 'function' ? (loadSchema() || schema) : schema;
+                render();
+                note('Latest configuration loaded');
+            };
+        }
+
+        if (typeof saveCaseBtn !== 'undefined' && saveCaseBtn) {
+            saveCaseBtn.onclick = saveFields;
+        }
+
+        if (typeof addCommentBtn !== 'undefined' && addCommentBtn) {
+            addCommentBtn.onclick = addTaskComment;
+        }
+
+        if (typeof addAttachmentBtn !== 'undefined' && addAttachmentBtn) {
+            addAttachmentBtn.onclick = addTaskAttachment;
+        }
+
+        if (typeof addNoteBtn !== 'undefined' && addNoteBtn) {
+            addNoteBtn.onclick = function () {
+                appendTimeline('Manual note added', `Note captured by ${currentRole}.`);
+            };
+        }
+
+        function render() {
+            schema = typeof loadSchema === 'function' ? (loadSchema() || schema) : schema;
+            renderSummary();
+            renderStageStrip();
+            renderModuleTabs();
+            renderActions();
+            renderCurrentTaskCollab();
+            renderTimeline();
+        }
+
+        render();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TATA AIG Admin Configuration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --tata-blue: #003b71;
+            --tata-blue-2: #005da8;
+            --tata-red: #d71920;
+            --soft-blue: #eef6ff;
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --line: #e5e7eb;
+            --bg: #f6f8fb;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --purple: #7c3aed
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 50
+        }
+
+        .brand-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: .02em;
+            color: var(--tata-blue)
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--tata-blue), var(--tata-blue-2));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 800;
+            box-shadow: 0 10px 22px rgba(0, 59, 113, .2)
+        }
+
+        .side-nav {
+            background: var(--tata-blue);
+            min-height: calc(100vh - 72px);
+            color: #dbeafe;
+            border-radius: 0 28px 28px 0;
+            position: sticky;
+            top: 72px
+        }
+
+        .side-nav .nav-link {
+            color: #dbeafe;
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: .94rem
+        }
+
+        .side-nav .nav-link.active,
+        .side-nav .nav-link:hover {
+            background: #fff;
+            color: var(--tata-blue)
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, var(--tata-blue), #0b65b1);
+            color: #fff;
+            border: 0;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 18px 40px rgba(0, 59, 113, .18)
+        }
+
+        .hero-card::after {
+            content: '';
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            position: absolute;
+            right: -80px;
+            top: -90px
+        }
+
+        .panel-card,
+        .metric-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, .05)
+        }
+
+        .small-label {
+            color: var(--muted);
+            font-size: .78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em
+        }
+
+        .form-control,
+        .form-select,
+        .form-check-input {
+            border-radius: 12px;
+            border-color: var(--line)
+        }
+
+        .btn-tata {
+            background: var(--tata-red);
+            color: #fff;
+            border: 0;
+            border-radius: 12px;
+            font-weight: 700
+        }
+
+        .btn-tata:hover {
+            background: #b9141a;
+            color: #fff
+        }
+
+        .btn-outline-tata {
+            border: 1px solid var(--tata-blue);
+            color: var(--tata-blue);
+            border-radius: 12px;
+            font-weight: 700
+        }
+
+        .btn-outline-tata:hover {
+            background: var(--tata-blue);
+            color: #fff
+        }
+
+        .badge-soft-blue {
+            background: var(--soft-blue);
+            color: var(--tata-blue);
+            border: 1px solid #d8ebff
+        }
+
+        .pill,
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #fff;
+            font-weight: 700
+        }
+
+        .chip {
+            background: var(--soft-blue);
+            color: var(--tata-blue);
+            border-color: #d8ebff
+        }
+
+        .table>:not(caption)>*>* {
+            padding: 12px 10px
+        }
+
+        .module-tab {
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: #fff;
+            color: var(--tata-blue);
+            font-weight: 700;
+            padding: .55rem .95rem;
+            cursor: pointer
+        }
+
+        .module-tab.active {
+            background: var(--tata-blue);
+            color: #fff
+        }
+
+        .soft-box {
+            background: #f8fbff;
+            border: 1px dashed #cfe2ff;
+            border-radius: 18px;
+            padding: 14px
+        }
+
+        .mini-card {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 14px;
+            background: #fff
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        .field-card {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 12px 14px;
+            background: #fff
+        }
+
+        .field-card.editable {
+            border-color: #cfe2ff;
+            background: #f8fbff
+        }
+
+        .field-label {
+            color: var(--muted);
+            font-size: .8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: .3rem
+        }
+
+        .required-star {
+            color: var(--tata-red);
+            margin-left: 4px
+        }
+
+        .field-input,
+        .field-value {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: var(--ink);
+            font-weight: 600;
+            outline: none;
+            padding: 0
+        }
+
+        .field-input {
+            border-bottom: 1px dashed #bfd4f7;
+            padding-bottom: 4px
+        }
+
+        .field-helper {
+            color: var(--muted);
+            font-size: .78rem;
+            margin-top: .25rem
+        }
+
+        .stage-strip {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px
+        }
+
+        .stage-step {
+            min-width: 170px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 14px;
+            background: #fff
+        }
+
+        .stage-step.active {
+            border-color: var(--tata-blue);
+            background: var(--soft-blue)
+        }
+
+        .nav-tabs .nav-link {
+            border-radius: 14px 14px 0 0;
+            font-weight: 700;
+            color: var(--tata-blue)
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--tata-blue);
+            background: #fff;
+            border-color: #cfe2ff #cfe2ff #fff
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px
+        }
+
+        .task-note {
+            background: #fff8e1;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            border-radius: 14px;
+            padding: 10px 12px
+        }
+
+        .error-ring {
+            border-color: var(--danger) !important;
+            box-shadow: 0 0 0 .15rem rgba(220, 38, 38, .15)
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 26px
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background: var(--line)
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 18px
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -23px;
+            top: 3px;
+            width: 12px;
+            height: 12px;
+            background: var(--tata-blue);
+            border-radius: 999px;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 3px #d8ebff
+        }
+
+        .comment-item,
+        .attachment-item {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 10px 12px;
+            background: #fff
+        }
+
+        .task-collab {
+            background: #fbfdff;
+            border: 1px dashed #dce7f7;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 12px
+        }
+
+        @media (max-width:991px) {
+            .side-nav {
+                min-height: auto;
+                border-radius: 0 0 24px 24px;
+                position: static
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="topbar py-3">
+        <div class="container-fluid px-4 d-flex align-items-center justify-content-between">
+            <div class="brand-pill">
+                <div class="brand-mark">TA</div>
+                <div>
+                    <div class="fs-5 lh-1">TATA AIG</div><small class="text-muted fw-semibold">Admin Configuration
+                        v5</small>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <div class="pill text-primary"><i class="bi bi-shield-lock"></i> Admin only</div><a
+                    class="btn btn-outline-tata btn-sm" href="index.html"><i
+                        class="bi bi-arrow-left me-1"></i> Back to Dashboard</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-lg-2 px-0">
+                <div class="side-nav p-3 p-lg-4">
+                    <div class="small text-white-50 mb-3 fw-bold text-uppercase">Admin Workspace</div>
+                    <nav class="nav flex-column"><a class="nav-link"
+                            href="index.html"><i
+                                class="bi bi-speedometer2 me-2"></i>Monitoring Dashboard</a><a class="nav-link active"
+                            href="#"><i class="bi bi-sliders2 me-2"></i>Configuration</a></nav>
+                    <div class="mt-4 p-3 rounded-4" style="background: rgba(255,255,255,.1);">
+                        <div class="small text-white-50">Scope</div>
+                        <div class="fw-bold text-white">Intent, Stage, Task, Module, Field</div><span
+                            class="badge bg-light text-primary mt-2">Schema Registry</span>
+                    </div>
+                </div>
+            </aside>
+            <main class="col-lg-10 p-4">
+                <section class="mb-4">
+                    <div class="hero-card p-4 p-lg-5">
+                        <div class="row align-items-center position-relative" style="z-index:1;">
+                            <div class="col-lg-8"><span
+                                    class="badge bg-white text-primary rounded-pill px-3 py-2 mb-3">Configuration
+                                    Console</span>
+                                <h1 class="display-6 fw-bold mb-2">Real-time Configuration</h1>
+                                <p class="mb-0 text-white-50 fs-6">Fully self-contained final configuration. Module
+                                    toggles update task mapping immediately, changing module refreshes fields instantly,
+                                    and new modules are created with a default field row.</p>
+                            </div>
+                            <div class="col-lg-4 mt-4 mt-lg-0 text-lg-end"><button
+                                    class="btn btn-light text-primary fw-bold" id="resetConfigBtn">Reset to
+                                    default</button></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="mb-4">
+                    <div class="d-flex flex-wrap gap-2" id="configTabs"><button class="module-tab active"
+                            onclick="showSection('intentSection', this)">Intent Mapper</button><button
+                            class="module-tab" onclick="showSection('stageTaskSection', this)">Stage & Task
+                            Mapper</button><button class="module-tab"
+                            onclick="showSection('moduleFieldSection', this)">Module & Field Mapper</button></div>
+                </section>
+                <section id="intentSection" class="config-section">
+                    <div class="panel-card p-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                            <div>
+                                <h4 class="fw-bold mb-1">Intent Mapper</h4>
+                                <p class="text-muted mb-0">Choose reusable modules for the intent. Toggling here updates
+                                    stage-task module choices in real time.</p>
+                            </div>
+                            <div class="d-flex gap-2"><button class="btn btn-outline-tata" onclick="saveIntent()">Save
+                                    Draft</button><button class="btn btn-tata" onclick="publishIntent()">Publish New
+                                    Version</button></div>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4"><label class="form-label fw-semibold">Intent Mapper ID</label><input
+                                    class="form-control" id="intentMapperId"></div>
+                            <div class="col-md-4"><label class="form-label fw-semibold">Display Name</label><input
+                                    class="form-control" id="intentDisplayName"></div>
+                            <div class="col-md-4"><label class="form-label fw-semibold">Domain</label><input
+                                    class="form-control" id="intentDomain"></div>
+                            <div class="col-md-3"><label class="form-label fw-semibold">Intent</label><input
+                                    class="form-control" id="intentName"></div>
+                            <div class="col-md-3"><label class="form-label fw-semibold">Sub Intent</label><input
+                                    class="form-control" id="intentSub"></div>
+                            <div class="col-md-3"><label class="form-label fw-semibold">LOB</label><input
+                                    class="form-control" id="intentLob"></div>
+                            <div class="col-md-3"><label class="form-label fw-semibold">Product Name</label><input
+                                    class="form-control" id="intentProduct"></div>
+                            <div class="col-md-3"><label class="form-label fw-semibold">Workflow ID</label><input
+                                    class="form-control" id="workflowId"></div>
+                            <div class="col-md-3"><label class="form-label fw-semibold">Default Owner</label><input
+                                    class="form-control" id="defaultOwner"></div>
+                            <div class="col-md-3"><label class="form-label fw-semibold">Status</label><select
+                                    class="form-select" id="intentStatus">
+                                    <option>Draft</option>
+                                    <option>Published</option>
+                                    <option>Deprecated</option>
+                                </select></div>
+                            <div class="col-md-3"><label class="form-label fw-semibold">Version</label><input
+                                    class="form-control" id="intentVersion"></div>
+                        </div>
+                        <div class="soft-box">
+                            <div class="small-label mb-2">Mapped Modules</div>
+                            <div class="row g-3" id="intentModuleRow"></div>
+                            <div class="mt-3">
+                                <div class="small-label mb-2">Selected Modules</div>
+                                <div class="d-flex flex-wrap gap-2" id="selectedIntentChips"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="stageTaskSection" class="config-section hidden">
+                    <div class="panel-card p-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                            <div>
+                                <h4 class="fw-bold mb-1">Stage & Task Mapper</h4>
+                                <p class="text-muted mb-0">Select a stage and map tasks, actor, next task/actor, system
+                                    intervention, and modules attached to each task.</p>
+                            </div>
+                            <div class="d-flex gap-2"><button class="btn btn-outline-tata" onclick="addStage()">Add
+                                    Stage</button><button class="btn btn-outline-tata" onclick="addTask()">Add
+                                    Task</button><button class="btn btn-tata"
+                                    onclick="persist('Stage & Task mapping saved')">Save Mapping</button></div>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4"><label class="form-label fw-semibold">Selected Stage</label><select
+                                    class="form-select" id="stageSelect"></select></div>
+                            <div class="col-md-8">
+                                <div class="small text-muted mt-4">This remains the control layer for stage → default
+                                    task / other tasks → actor → module mapping.</div>
+                            </div>
+                        </div>
+                        <div class="table-responsive mb-4">
+                            <table class="table align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Actor</th>
+                                        <th>Default</th>
+                                        <th>Next Task / Actor</th>
+                                        <th>System Intervention</th>
+                                        <th>Modules</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tasksBody"></tbody>
+                            </table>
+                        </div>
+                        <div class="soft-box">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <div class="small-label">Task → Modules mapping</div>
+                                    <div class="fw-semibold">Select a task and choose the modules attached to it.</div>
+                                </div>
+                                <div class="chip" id="selectedTaskChip">No task selected</div>
+                            </div>
+                            <div class="row g-3" id="taskModuleRow"></div>
+                            <div class="mt-3">
+                                <div class="small-label mb-2">Modules attached to selected task</div>
+                                <div class="d-flex flex-wrap gap-2" id="taskModuleChips"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="moduleFieldSection" class="config-section hidden">
+                    <div class="panel-card p-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                            <div>
+                                <h4 class="fw-bold mb-1">Module & Field Mapper</h4>
+                                <p class="text-muted mb-0">Changing the selected module refreshes the field list
+                                    instantly. Adding a new module auto-creates one default field row and selects that
+                                    module.</p>
+                            </div>
+                            <div class="d-flex gap-2"><button class="btn btn-outline-tata" onclick="addModule()">Add
+                                    Module</button><button class="btn btn-outline-tata" onclick="addField()">Add
+                                    Field</button><button class="btn btn-tata" onclick="saveModuleMeta()">Save Field
+                                    Mapping</button></div>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4"><label class="form-label fw-semibold">Select Module</label><select
+                                    class="form-select" id="moduleSelect"></select></div>
+                            <div class="col-md-4"><label class="form-label fw-semibold">Module ID</label><input
+                                    class="form-control" id="moduleIdInput"></div>
+                            <div class="col-md-4"><label class="form-label fw-semibold">Module Name</label><input
+                                    class="form-control" id="moduleNameInput"></div>
+                            <div class="col-12"><label class="form-label fw-semibold">Module
+                                    Description</label><textarea class="form-control" rows="2"
+                                    id="moduleDescInput"></textarea></div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field Name</th>
+                                        <th>Display Name</th>
+                                        <th>Placeholder</th>
+                                        <th>Data Type</th>
+                                        <th>Validation Rule</th>
+                                        <th>Default</th>
+                                        <th>Required</th>
+                                        <th>Sensitive</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fieldsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="saveToast" class="toast align-items-center text-bg-dark border-0">
+            <div class="d-flex">
+                <div class="toast-body" id="toastBody">Saved.</div><button type="button"
+                    class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+    <script>const DEFAULT_SCHEMA = { "version": 5, "intentMappers": [{ "intentMapperId": "PE_RFQ_NB_001", "displayName": "P&E RFQ Request", "domain": "Commercial Lines", "lob": "Property", "productName": "P&E", "intent": "RFQ", "subIntent": "New Business", "workflowId": "WF-PE-RFQ-001", "defaultOwner": "Sales", "status": "Draft", "version": "v1", "mappedModuleIds": ["mod_basic_info", "mod_client_info", "mod_address_contact", "mod_expiring_policy", "mod_documents", "mod_uw_review", "mod_uw_risk", "mod_uw_routing", "mod_ri_review", "mod_re_survey", "mod_quote_details", "mod_proposal_pack", "mod_payment_kyc", "mod_policy_issue"], "stageTaskMapId": "STM_PE_RFQ_NB_001" }], "modules": [{ "moduleId": "mod_basic_info", "moduleName": "Basic Information", "moduleDescription": "Sales lead creation basics.", "fields": [{ "fieldName": "rmCode", "displayName": "RM code", "placeholderName": "Auto from login", "dataType": "Display Field", "validationRule": "Auto-populated basis login", "defaultValue": "RM12345", "required": "Yes", "isSensitive": "No" }, { "fieldName": "branchLocation", "displayName": "Branch Location", "placeholderName": "Auto from login", "dataType": "Display Field", "validationRule": "Auto-populated basis login", "defaultValue": "Gurugram", "required": "Yes", "isSensitive": "No" }, { "fieldName": "policyType", "displayName": "Policy Type", "placeholderName": "Select policy type", "dataType": "Dropdown", "validationRule": "New Business / Renewal / Endorsement", "defaultValue": "New Business", "required": "Yes", "isSensitive": "No" }, { "fieldName": "lanContractNo", "displayName": "LAN/Contract No.", "placeholderName": "Enter LAN / Contract No.", "dataType": "Textbox", "validationRule": "Alphanumeric, special chars, upto 10", "defaultValue": "", "required": "No", "isSensitive": "No" }] }, { "moduleId": "mod_client_info", "moduleName": "Client Information", "moduleDescription": "Customer type, account type and insured details.", "fields": [{ "fieldName": "customerType", "displayName": "Customer Type", "placeholderName": "Select customer type", "dataType": "Dropdown", "validationRule": "Individual / Organization", "defaultValue": "Organization", "required": "Yes", "isSensitive": "No" }, { "fieldName": "accountType", "displayName": "Account Type", "placeholderName": "Select account type", "dataType": "Dropdown", "validationRule": "MAP / CAP", "defaultValue": "Corporate Account Practice", "required": "Yes", "isSensitive": "No" }, { "fieldName": "accountCategory", "displayName": "Account Category", "placeholderName": "Select account category", "dataType": "Dropdown", "validationRule": "Indian Corporate / Public Sector / Tata Group / MNC", "defaultValue": "", "required": "Yes", "isSensitive": "No" }, { "fieldName": "businessInsured", "displayName": "Business of the Insured", "placeholderName": "Enter business of the insured", "dataType": "Textbox", "validationRule": "Alphanumeric", "defaultValue": "", "required": "Yes", "isSensitive": "No" }, { "fieldName": "insuredName", "displayName": "Name of Proposer / Insured", "placeholderName": "Enter insured name", "dataType": "Textbox", "validationRule": "Max 20 chars", "defaultValue": "ABC Logistics Pvt Ltd", "required": "Yes", "isSensitive": "No" }] }, { "moduleId": "mod_address_contact", "moduleName": "Address & Contact", "moduleDescription": "Communication address and contact details.", "fields": [{ "fieldName": "address1", "displayName": "Communication Address 1", "placeholderName": "Address line 1", "dataType": "Textbox", "validationRule": "Alphanumeric upto 2000", "defaultValue": "", "required": "Yes", "isSensitive": "No" }, { "fieldName": "pinCode", "displayName": "Pin Code", "placeholderName": "Enter pin code", "dataType": "Textbox", "validationRule": "6 digit pincode", "defaultValue": "122001", "required": "Yes", "isSensitive": "No" }, { "fieldName": "district", "displayName": "District", "placeholderName": "Auto from pincode", "dataType": "Display Field", "validationRule": "System generated basis pin code", "defaultValue": "Gurugram", "required": "Yes", "isSensitive": "No" }, { "fieldName": "mobileNumber", "displayName": "Mobile Number", "placeholderName": "Enter mobile number", "dataType": "Textbox", "validationRule": "10 digit mobile number", "defaultValue": "", "required": "Yes", "isSensitive": "Yes" }, { "fieldName": "emailId", "displayName": "Email ID", "placeholderName": "Enter email ID", "dataType": "Textbox", "validationRule": "Email format", "defaultValue": "", "required": "Yes", "isSensitive": "Yes" }] }, { "moduleId": "mod_expiring_policy", "moduleName": "Expiring Policy", "moduleDescription": "Expiring policy details.", "fields": [{ "fieldName": "expiringInsurer", "displayName": "Expiring Insurer Details", "placeholderName": "Enter expiring insurer details", "dataType": "Textbox", "validationRule": "Visible for New Business / Renewal", "defaultValue": "", "required": "No", "isSensitive": "No" }, { "fieldName": "policyPeriodFrom", "displayName": "Policy Period: From", "placeholderName": "Select start date", "dataType": "Date", "validationRule": "Visible for New Business / Renewal", "defaultValue": "2025-04-01", "required": "No", "isSensitive": "No" }, { "fieldName": "policyPeriodTo", "displayName": "Policy Period: To", "placeholderName": "Select end date", "dataType": "Date", "validationRule": "Visible for New Business / Renewal", "defaultValue": "2026-03-31", "required": "No", "isSensitive": "No" }, { "fieldName": "expiringPremium", "displayName": "Expiring Premium (without taxes)", "placeholderName": "Enter premium", "dataType": "Textbox", "validationRule": "Numeric", "defaultValue": "1875000", "required": "No", "isSensitive": "No" }] }, { "moduleId": "mod_documents", "moduleName": "Documents", "moduleDescription": "Reusable upload/document module.", "fields": [{ "fieldName": "documentUpload", "displayName": "Document upload", "placeholderName": "Upload document", "dataType": "File", "validationRule": "PDF/JPG/PNG", "defaultValue": "NA", "required": "No", "isSensitive": "Yes" }, { "fieldName": "documentDescription", "displayName": "Document description", "placeholderName": "Enter description", "dataType": "Textbox", "validationRule": "Alphanumeric", "defaultValue": "NA", "required": "No", "isSensitive": "No" }] }, { "moduleId": "mod_uw_review", "moduleName": "UW Review Summary", "moduleDescription": "UW review summary fields.", "fields": [{ "fieldName": "lob", "displayName": "LOB", "placeholderName": "Select LOB", "dataType": "Dropdown", "validationRule": "Property / Energy / Construction", "defaultValue": "Property", "required": "Yes", "isSensitive": "No" }, { "fieldName": "product", "displayName": "Product", "placeholderName": "Select product", "dataType": "Dropdown", "validationRule": "Master driven product selection", "defaultValue": "IndustrialAllRiskInsurance", "required": "Yes", "isSensitive": "No" }, { "fieldName": "currencyType", "displayName": "Currency Type", "placeholderName": "Select currency", "dataType": "Dropdown", "validationRule": "INR / USD / others", "defaultValue": "INR", "required": "Yes", "isSensitive": "No" }, { "fieldName": "quoteValidity", "displayName": "Quote Validity", "placeholderName": "Enter validity", "dataType": "Textbox", "validationRule": "Policy expiry date OR 15 days from approval date whichever earlier", "defaultValue": "15", "required": "Yes", "isSensitive": "No" }, { "fieldName": "totalSumInsured", "displayName": "Total Sum Insured", "placeholderName": "Enter TSI", "dataType": "Textbox", "validationRule": "PD + BI sum", "defaultValue": "1500000000", "required": "Yes", "isSensitive": "No" }] }, { "moduleId": "mod_uw_risk", "moduleName": "UW Risk Inputs", "moduleDescription": "UW risk info, occupancy and ratings.", "fields": [{ "fieldName": "occupancy", "displayName": "Occupancy", "placeholderName": "Select occupancy", "dataType": "Dropdown", "validationRule": "Master driven basis product", "defaultValue": "Warehouse / Logistics", "required": "Yes", "isSensitive": "No" }, { "fieldName": "businessDetails", "displayName": "Business Details", "placeholderName": "Enter business details", "dataType": "Textbox", "validationRule": "Alphanumeric upto 1000", "defaultValue": "Multi-location logistics warehouses across NCR.", "required": "Yes", "isSensitive": "No" }, { "fieldName": "riskEngineeringRating", "displayName": "Risk Rating basis Risk Engineering", "placeholderName": "Select RE rating", "dataType": "Dropdown", "validationRule": "Excellent / Good / Standard / Below Average / Poor", "defaultValue": "Standard/Average", "required": "Yes", "isSensitive": "No" }, { "fieldName": "underwritingRating", "displayName": "Underwriting Rating", "placeholderName": "Select UW rating", "dataType": "Dropdown", "validationRule": "Excellent / Good / Standard / Below Average / Poor", "defaultValue": "Good", "required": "Yes", "isSensitive": "No" }, { "fieldName": "uwRecommendation", "displayName": "UW Recommendation", "placeholderName": "Enter recommendation", "dataType": "Textbox", "validationRule": "Free text", "defaultValue": "Proceed subject to RE/RI review if required.", "required": "Yes", "isSensitive": "No" }] }, { "moduleId": "mod_uw_routing", "moduleName": "Referral & Decision", "moduleDescription": "Routing, SAF/FAC and decision controls.", "fields": [{ "fieldName": "riInvolved", "displayName": "Is RI involved", "placeholderName": "Select yes/no", "dataType": "Checkbox", "validationRule": "Disable create quote until RI approves if selected", "defaultValue": "No", "required": "No", "isSensitive": "No" }, { "fieldName": "fac", "displayName": "FAC", "placeholderName": "Select yes/no", "dataType": "Checkbox", "validationRule": "FAC flag", "defaultValue": "No", "required": "No", "isSensitive": "No" }, { "fieldName": "specialAcceptanceForm", "displayName": "Special Acceptance Form", "placeholderName": "Select yes/no", "dataType": "Checkbox", "validationRule": "SAF flag", "defaultValue": "No", "required": "No", "isSensitive": "No" }, { "fieldName": "reasonForReferral", "displayName": "Reason for referral", "placeholderName": "Enter reason", "dataType": "Textbox", "validationRule": "Free text", "defaultValue": "", "required": "No", "isSensitive": "No" }, { "fieldName": "sendBackTo", "displayName": "Send back to", "placeholderName": "Select destination", "dataType": "Dropdown", "validationRule": "Individual UW / UW Pool / Sales", "defaultValue": "Sales", "required": "No", "isSensitive": "No" }] }, { "moduleId": "mod_ri_review", "moduleName": "RI Review", "moduleDescription": "RI review inputs.", "fields": [{ "fieldName": "proposedRate", "displayName": "Proposed Rate", "placeholderName": "Enter proposed rate", "dataType": "Textbox", "validationRule": "Numeric", "defaultValue": "", "required": "No", "isSensitive": "No" }, { "fieldName": "proposedDeductible", "displayName": "Proposed Deductible", "placeholderName": "Enter deductible", "dataType": "Textbox", "validationRule": "Numeric", "defaultValue": "", "required": "No", "isSensitive": "No" }, { "fieldName": "proposedPremium", "displayName": "Proposed Premium", "placeholderName": "Enter premium", "dataType": "Textbox", "validationRule": "Numeric", "defaultValue": "", "required": "No", "isSensitive": "No" }, { "fieldName": "riAction", "displayName": "Action", "placeholderName": "Query / Submit", "dataType": "Dropdown", "validationRule": "Query / Submit", "defaultValue": "Submit", "required": "Yes", "isSensitive": "No" }] }, { "moduleId": "mod_re_survey", "moduleName": "RE Survey & Assessment", "moduleDescription": "Risk engineering review module.", "fields": [{ "fieldName": "typeOfSurvey", "displayName": "Type of Survey", "placeholderName": "Select survey type", "dataType": "Dropdown", "validationRule": "Prospect / Existing / Resurvey / Post Loss / VAS", "defaultValue": "Prospect Business \u2013 First Survey", "required": "Yes", "isSensitive": "No" }, { "fieldName": "surveyRequirement", "displayName": "Survey Requirement", "placeholderName": "Select requirement", "dataType": "Dropdown", "validationRule": "Master list from RE sheet", "defaultValue": "UW Requirement for Risk Assessment", "required": "Yes", "isSensitive": "No" }, { "fieldName": "occupancyType", "displayName": "Occupancy Type", "placeholderName": "Enter occupancy type", "dataType": "Textbox", "validationRule": "Alphanumeric", "defaultValue": "Warehouse / Logistics", "required": "Yes", "isSensitive": "No" }, { "fieldName": "locationAddress", "displayName": "Location Address", "placeholderName": "Enter location address", "dataType": "Textbox", "validationRule": "Alphanumeric", "defaultValue": "Gurugram, Haryana", "required": "Yes", "isSensitive": "No" }, { "fieldName": "riskRatingRE", "displayName": "Risk Rating basis Risk Engineering", "placeholderName": "Select RE rating", "dataType": "Dropdown", "validationRule": "Excellent / Good / Standard / Below Average / Poor", "defaultValue": "Standard/Average", "required": "Yes", "isSensitive": "No" }] }, { "moduleId": "mod_quote_details", "moduleName": "Quote Details", "moduleDescription": "Quote stage fields.", "fields": [{ "fieldName": "premium", "displayName": "Premium", "placeholderName": "Enter premium", "dataType": "Textbox", "validationRule": "Numeric", "defaultValue": "2480000", "required": "Yes", "isSensitive": "No" }, { "fieldName": "proposedRate", "displayName": "Proposed Rate (Per Mille)", "placeholderName": "Enter rate", "dataType": "Textbox", "validationRule": "Numeric", "defaultValue": "0.42", "required": "Yes", "isSensitive": "No" }, { "fieldName": "mdProposedExcess", "displayName": "MD Proposed Excess", "placeholderName": "Enter MD excess", "dataType": "Textbox", "validationRule": "Alphanumeric", "defaultValue": "500000", "required": "No", "isSensitive": "No" }] }, { "moduleId": "mod_proposal_pack", "moduleName": "Proposal Pack", "moduleDescription": "Proposal stage data object.", "fields": [{ "fieldName": "proposalVersion", "displayName": "Proposal Version", "placeholderName": "Enter version", "dataType": "Textbox", "validationRule": "Free text", "defaultValue": "V1", "required": "Yes", "isSensitive": "No" }, { "fieldName": "coverageSummary", "displayName": "Coverage Summary", "placeholderName": "Enter summary", "dataType": "Textbox", "validationRule": "Free text", "defaultValue": "MD + BI", "required": "Yes", "isSensitive": "No" }, { "fieldName": "terms", "displayName": "Terms", "placeholderName": "Enter terms", "dataType": "Textbox", "validationRule": "Free text", "defaultValue": "Standard corporate property wording", "required": "Yes", "isSensitive": "No" }] }, { "moduleId": "mod_payment_kyc", "moduleName": "Payment & KYC", "moduleDescription": "Payment stage fields.", "fields": [{ "fieldName": "kycStatus", "displayName": "KYC Status", "placeholderName": "KYC status", "dataType": "Display Field", "validationRule": "System / sales driven", "defaultValue": "Pending", "required": "No", "isSensitive": "No" }, { "fieldName": "paymentLink", "displayName": "Payment Link", "placeholderName": "Payment URL", "dataType": "Display Field", "validationRule": "System generated if KYC needed", "defaultValue": "Not generated", "required": "No", "isSensitive": "No" }, { "fieldName": "paymentStatus", "displayName": "Payment Status", "placeholderName": "Select payment status", "dataType": "Dropdown", "validationRule": "Pending / Initiated / Received", "defaultValue": "Pending", "required": "Yes", "isSensitive": "No" }, { "fieldName": "salesFollowup", "displayName": "Sales Follow-up", "placeholderName": "Enter follow-up plan", "dataType": "Textbox", "validationRule": "Free text", "defaultValue": "", "required": "Yes", "isSensitive": "No" }] }, { "moduleId": "mod_policy_issue", "moduleName": "Policy Issue", "moduleDescription": "Policy issuance fields.", "fields": [{ "fieldName": "policyNumber", "displayName": "Policy Number", "placeholderName": "Policy number", "dataType": "Display Field", "validationRule": "System generated", "defaultValue": "Pending issuance", "required": "No", "isSensitive": "No" }, { "fieldName": "policyInception", "displayName": "Policy Inception", "placeholderName": "Select inception date", "dataType": "Date", "validationRule": "Date", "defaultValue": "2026-04-01", "required": "Yes", "isSensitive": "No" }, { "fieldName": "policyExpiry", "displayName": "Policy Expiry", "placeholderName": "Select expiry date", "dataType": "Date", "validationRule": "Date", "defaultValue": "2027-03-31", "required": "Yes", "isSensitive": "No" }] }], "stageTaskMaps": [{ "stageTaskMapId": "STM_PE_RFQ_NB_001", "stages": [{ "stageId": "customer_creation", "stageName": "Customer Creation", "order": 1, "tasks": [{ "taskId": "create_customer", "taskName": "Create_Customer", "actor": "Sales", "isDefault": true, "nextActions": ["Next stage"], "systemIntervention": "", "moduleIds": ["mod_basic_info", "mod_client_info", "mod_address_contact", "mod_expiring_policy", "mod_documents"] }] }, { "stageId": "under_review", "stageName": "Under Review", "order": 2, "tasks": [{ "taskId": "refer_to_uw", "taskName": "Refer to UW", "actor": "UW", "isDefault": true, "nextActions": ["RI", "RE", "reject", "approve", "Sales"], "systemIntervention": "", "moduleIds": ["mod_uw_review", "mod_uw_risk", "mod_uw_routing", "mod_documents"] }, { "taskId": "refer_to_ri", "taskName": "Refer to RI", "actor": "RI", "isDefault": false, "nextActions": ["UW"], "systemIntervention": "", "moduleIds": ["mod_ri_review", "mod_documents"] }, { "taskId": "refer_to_re", "taskName": "Refer to RE", "actor": "RE", "isDefault": false, "nextActions": ["UW"], "systemIntervention": "", "moduleIds": ["mod_re_survey", "mod_documents"] }, { "taskId": "refer_to_sales", "taskName": "Refer to Sales", "actor": "Sales", "isDefault": false, "nextActions": ["UW", "reject", "approve"], "systemIntervention": "", "moduleIds": ["mod_client_info", "mod_address_contact", "mod_documents"] }] }, { "stageId": "quote", "stageName": "Quote", "order": 3, "tasks": [{ "taskId": "quote_refer_uw", "taskName": "Refer to UW", "actor": "UW", "isDefault": true, "nextActions": ["Senior_UW", "Corporate_UW", "Sales", "Next stage"], "systemIntervention": "Generate quote -> this will generate quote and send to UW", "moduleIds": ["mod_quote_details", "mod_documents"] }, { "taskId": "quote_refer_sales", "taskName": "Refer to Sales", "actor": "Sales", "isDefault": false, "nextActions": ["UW"], "systemIntervention": "", "moduleIds": ["mod_quote_details", "mod_documents"] }] }, { "stageId": "proposal", "stageName": "Proposal", "order": 4, "tasks": [{ "taskId": "proposal_refer_sales", "taskName": "Refer to Sales", "actor": "Sales", "isDefault": true, "nextActions": ["Next stage"], "systemIntervention": "", "moduleIds": ["mod_proposal_pack", "mod_documents"] }, { "taskId": "proposal_refer_uw", "taskName": "Refer to UW", "actor": "UW", "isDefault": false, "nextActions": ["Sales", "approve", "reject"], "systemIntervention": "", "moduleIds": ["mod_proposal_pack", "mod_uw_routing"] }] }, { "stageId": "payment", "stageName": "Payment", "order": 5, "tasks": [{ "taskId": "kyc_check", "taskName": "KYC_Check", "actor": "System", "isDefault": true, "nextActions": ["KYC_Needed", "Payment initiated"], "systemIntervention": "Validate KYC", "moduleIds": ["mod_payment_kyc"] }, { "taskId": "kyc_needed", "taskName": "KYC_Needed", "actor": "Sales", "isDefault": false, "nextActions": ["Payment initiated"], "systemIntervention": "If KYC does not exist", "moduleIds": ["mod_payment_kyc", "mod_documents"] }, { "taskId": "payment_initiated", "taskName": "Payment initiated", "actor": "Sales", "isDefault": false, "nextActions": ["Payment received"], "systemIntervention": "Payment link generated", "moduleIds": ["mod_payment_kyc"] }] }, { "stageId": "policy_issued", "stageName": "Policy issued", "order": 6, "tasks": [{ "taskId": "closed", "taskName": "Closed", "actor": "Closed", "isDefault": true, "nextActions": ["Closed"], "systemIntervention": "", "moduleIds": ["mod_policy_issue"] }] }] }] }; const SCHEMA_STORAGE_KEY = 'tataAigSchemaConfigV5'; function deepClone(o) { return JSON.parse(JSON.stringify(o)); } function loadSchema() { try { const r = localStorage.getItem(SCHEMA_STORAGE_KEY); if (r) return JSON.parse(r); } catch (e) { console.warn(e) } localStorage.setItem(SCHEMA_STORAGE_KEY, JSON.stringify(DEFAULT_SCHEMA)); return deepClone(DEFAULT_SCHEMA); } function saveSchema(s) { localStorage.setItem(SCHEMA_STORAGE_KEY, JSON.stringify(s)); } function getModule(s, id) { return (s.modules || []).find(x => x.moduleId === id); } function uid(prefix) { return prefix + '_' + Date.now() + '_' + Math.floor(Math.random() * 1000); }</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>let schema = loadSchema(); let stageMap = schema.stageTaskMaps[0]; let selectedStageId = stageMap.stages[0].stageId; let selectedTaskId = stageMap.stages[0].tasks[0].taskId; let selectedModuleId = schema.modules[0].moduleId; const toast = new bootstrap.Toast(document.getElementById('saveToast')); function t(msg) { toastBody.textContent = msg; toast.show(); } function persist(msg) { saveSchema(schema); t(msg); } function showSection(id, btn) { document.querySelectorAll('.config-section').forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); document.querySelectorAll('#configTabs .module-tab').forEach(b => b.classList.remove('active')); btn.classList.add('active'); if (id === 'stageTaskSection') renderStageTask(); if (id === 'moduleFieldSection') renderModuleField(); } function intent() { return schema.intentMappers[0]; } function saveIntent() { const i = intent(); i.intentMapperId = intentMapperId.value; i.displayName = intentDisplayName.value; i.domain = intentDomain.value; i.intent = intentName.value; i.subIntent = intentSub.value; i.lob = intentLob.value; i.productName = intentProduct.value; i.workflowId = workflowId.value; i.defaultOwner = defaultOwner.value; i.status = intentStatus.value; i.version = intentVersion.value; persist('Intent Mapper draft saved'); renderIntent(); } function publishIntent() { saveIntent(); const i = intent(); const v = parseInt(String(i.version).replace(/[^0-9]/g, '')) || 1; i.version = 'v' + (v + 1); i.status = 'Published'; persist('New intent version published'); renderIntent(); } function renderIntent() { const i = intent(); intentMapperId.value = i.intentMapperId; intentDisplayName.value = i.displayName; intentDomain.value = i.domain; intentName.value = i.intent; intentSub.value = i.subIntent; intentLob.value = i.lob; intentProduct.value = i.productName; workflowId.value = i.workflowId; defaultOwner.value = i.defaultOwner; intentStatus.value = i.status; intentVersion.value = i.version; intentModuleRow.innerHTML = schema.modules.map((m, idx) => `<div class='col-md-4'><div class='mini-card h-100'><div class='form-check form-switch mb-2'><input class='form-check-input' type='checkbox' id='mod_${idx}' ${(i.mappedModuleIds || []).includes(m.moduleId) ? 'checked' : ''} onchange='toggleIntentModule("${m.moduleId}")'><label class='form-check-label fw-semibold' for='mod_${idx}'>${m.moduleName}</label></div><div class='small text-muted mb-2'>${m.moduleId}</div><div>${m.moduleDescription}</div></div></div>`).join(''); selectedIntentChips.innerHTML = (i.mappedModuleIds || []).map(mid => `<span class='chip'><i class='bi bi-box-seam'></i>${getModule(schema, mid).moduleName}</span>`).join('') || '<div class="text-muted">No modules selected.</div>'; renderStageTask(); renderModuleField(); } function toggleIntentModule(mid) { const arr = intent().mappedModuleIds || []; if (arr.includes(mid)) intent().mappedModuleIds = arr.filter(x => x !== mid); else arr.push(mid), intent().mappedModuleIds = arr; saveSchema(schema); renderIntent(); t('Intent module selection updated'); } function currentStage() { return stageMap.stages.find(s => s.stageId === selectedStageId) || stageMap.stages[0]; } function currentTask() { const st = currentStage(); return st.tasks.find(t => t.taskId === selectedTaskId) || st.tasks[0]; } function renderStageTask() { stageMap = schema.stageTaskMaps[0]; if (!stageMap.stages.find(s => s.stageId === selectedStageId)) selectedStageId = stageMap.stages[0].stageId; stageSelect.innerHTML = stageMap.stages.map(s => `<option value='${s.stageId}'>${s.order}. ${s.stageName}</option>`).join(''); stageSelect.value = selectedStageId; stageSelect.onchange = () => { selectedStageId = stageSelect.value; selectedTaskId = (currentStage().tasks[0] || {}).taskId; renderStageTask(); }; tasksBody.innerHTML = (currentStage().tasks || []).map(t => `<tr class='${t.taskId === selectedTaskId ? 'table-primary' : ''}'><td><div class='fw-semibold'>${t.taskName}</div><div><button class='btn btn-link p-0 text-decoration-none' onclick='selectTask("${t.taskId}")'>Map modules</button></div></td><td><input class='form-control form-control-sm' value='${t.actor}' onchange='updTask("${t.taskId}","actor",this.value)'></td><td><select class='form-select form-select-sm' onchange='updTask("${t.taskId}","isDefault",this.value==="true")'><option value='true' ${t.isDefault ? 'selected' : ''}>Yes</option><option value='false' ${!t.isDefault ? 'selected' : ''}>No</option></select></td><td><input class='form-control form-control-sm' value='${(t.nextActions || []).join(", ")}' onchange='updTask("${t.taskId}","nextActions",this.value.split(",").map(x=>x.trim()).filter(Boolean))'></td><td><input class='form-control form-control-sm' value='${t.systemIntervention || ""}' onchange='updTask("${t.taskId}","systemIntervention",this.value)'></td><td><small>${(t.moduleIds || []).map(mid => getModule(schema, mid)?.moduleName || mid).join(", ") || "No modules mapped"}</small></td></tr>`).join(''); renderTaskModules(); } function selectTask(id) { selectedTaskId = id; renderStageTask(); } function updTask(id, key, val) { const task = currentStage().tasks.find(t => t.taskId === id); if (key === 'isDefault' && val === true) currentStage().tasks.forEach(t => t.isDefault = false); task[key] = val; persist('Task updated'); renderStageTask(); } function addStage() { const n = stageMap.stages.length + 1; stageMap.stages.push({ stageId: uid('stage'), stageName: 'New Stage ' + n, order: n, tasks: [{ taskId: uid('task'), taskName: 'Default Task', actor: 'Sales', isDefault: true, nextActions: ['Next stage'], systemIntervention: '', moduleIds: [] }] }); selectedStageId = stageMap.stages[stageMap.stages.length - 1].stageId; selectedTaskId = stageMap.stages[stageMap.stages.length - 1].tasks[0].taskId; persist('New stage added'); renderStageTask(); } function addTask() { const st = currentStage(); st.tasks.push({ taskId: uid('task'), taskName: 'New Task', actor: 'Sales', isDefault: st.tasks.length === 0, nextActions: ['Next stage'], systemIntervention: '', moduleIds: [] }); selectedTaskId = st.tasks[st.tasks.length - 1].taskId; persist('New task added'); renderStageTask(); } function renderTaskModules() { const task = currentTask(); selectedTaskChip.textContent = task ? task.taskName + ' · ' + task.actor : 'No task selected'; const allowed = intent().mappedModuleIds || []; taskModuleRow.innerHTML = allowed.map(mid => { const mod = getModule(schema, mid); return `<div class='col-md-4'><div class='mini-card h-100'><div class='form-check form-switch mb-2'><input class='form-check-input' type='checkbox' id='tmod_${mid}' ${(task.moduleIds || []).includes(mid) ? 'checked' : ''} onchange='toggleTaskModule("${mid}")'><label class='form-check-label fw-semibold' for='tmod_${mid}'>${mod.moduleName}</label></div><div class='small text-muted'>${mod.moduleId}</div></div></div>`; }).join(''); taskModuleChips.innerHTML = (task.moduleIds || []).map(mid => `<span class='chip'><i class='bi bi-box-seam'></i>${getModule(schema, mid).moduleName}</span>`).join('') || '<div class="text-muted">No modules attached to selected task.</div>'; } function toggleTaskModule(mid) { const task = currentTask(); task.moduleIds = task.moduleIds || []; if (task.moduleIds.includes(mid)) task.moduleIds = task.moduleIds.filter(x => x !== mid); else task.moduleIds.push(mid); saveSchema(schema); renderStageTask(); t('Task-module mapping updated'); } function currentModule() { return getModule(schema, selectedModuleId) || schema.modules[0]; } function renderModuleField() { moduleSelect.innerHTML = schema.modules.map(m => `<option value='${m.moduleId}'>${m.moduleName}</option>`).join(''); if (!getModule(schema, selectedModuleId)) selectedModuleId = schema.modules[0].moduleId; moduleSelect.value = selectedModuleId; moduleSelect.onchange = () => { selectedModuleId = moduleSelect.value; renderModuleField(); }; const m = currentModule(); moduleIdInput.value = m.moduleId; moduleNameInput.value = m.moduleName; moduleDescInput.value = m.moduleDescription || ''; fieldsBody.innerHTML = (m.fields || []).map((f, idx) => `<tr><td><input class='form-control form-control-sm' value='${f.fieldName}' onchange='updField("${m.moduleId}",${idx},"fieldName",this.value)'></td><td><input class='form-control form-control-sm' value='${f.displayName}' onchange='updField("${m.moduleId}",${idx},"displayName",this.value)'></td><td><input class='form-control form-control-sm' value='${f.placeholderName}' onchange='updField("${m.moduleId}",${idx},"placeholderName",this.value)'></td><td><input class='form-control form-control-sm' value='${f.dataType}' onchange='updField("${m.moduleId}",${idx},"dataType",this.value)'></td><td><input class='form-control form-control-sm' value='${f.validationRule}' onchange='updField("${m.moduleId}",${idx},"validationRule",this.value)'></td><td><input class='form-control form-control-sm' value='${f.defaultValue}' onchange='updField("${m.moduleId}",${idx},"defaultValue",this.value)'></td><td><select class='form-select form-select-sm' onchange='updField("${m.moduleId}",${idx},"required",this.value)'><option ${f.required === 'Yes' ? 'selected' : ''}>Yes</option><option ${f.required === 'No' ? 'selected' : ''}>No</option></select></td><td><select class='form-select form-select-sm' onchange='updField("${m.moduleId}",${idx},"isSensitive",this.value)'><option ${f.isSensitive === 'Yes' ? 'selected' : ''}>Yes</option><option ${f.isSensitive === 'No' ? 'selected' : ''}>No</option></select></td></tr>`).join(''); } function updField(mid, idx, key, val) { getModule(schema, mid).fields[idx][key] = val; saveSchema(schema); t(getModule(schema, mid).moduleName + ' field updated'); renderModuleField(); } function addField() { const m = currentModule(); m.fields = m.fields || []; m.fields.push({ fieldName: 'newField', displayName: 'New Field', placeholderName: 'Enter value', dataType: 'Textbox', validationRule: 'NA', defaultValue: '', required: 'No', isSensitive: 'No' }); saveSchema(schema); renderModuleField(); t('New field added'); } function addModule() { const m = { moduleId: uid('mod'), moduleName: 'New Module', moduleDescription: 'New module description', fields: [{ fieldName: 'newField', displayName: 'New Field', placeholderName: 'Enter value', dataType: 'Textbox', validationRule: 'NA', defaultValue: '', required: 'No', isSensitive: 'No' }] }; schema.modules.push(m); intent().mappedModuleIds.push(m.moduleId); selectedModuleId = m.moduleId; saveSchema(schema); renderIntent(); renderModuleField(); t('New module added with default field'); } function saveModuleMeta() { const m = currentModule(); m.moduleId = moduleIdInput.value; m.moduleName = moduleNameInput.value; m.moduleDescription = moduleDescInput.value; saveSchema(schema); renderIntent(); renderModuleField(); renderStageTask(); t('Module metadata saved'); } resetConfigBtn.onclick = () => { schema = deepClone(DEFAULT_SCHEMA); saveSchema(schema); stageMap = schema.stageTaskMaps[0]; selectedStageId = stageMap.stages[0].stageId; selectedTaskId = stageMap.stages[0].tasks[0].taskId; selectedModuleId = schema.modules[0].moduleId; t('Configuration reset to default'); renderIntent(); }; renderIntent();</script>
+</body>
+
+</html>
