@@ -1,0 +1,393 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TATA AIG Admin Configuration</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --tata-blue:#003b71; --tata-blue-2:#005da8; --tata-red:#d71920; --soft-blue:#eef6ff; --soft-red:#fff1f1;
+      --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f6f8fb; --success:#16a34a;
+    }
+    body { background: var(--bg); color: var(--ink); font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .topbar { background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; }
+    .brand-pill { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.02em; color:var(--tata-blue); }
+    .brand-mark { width:42px; height:42px; border-radius:14px; background:linear-gradient(135deg,var(--tata-blue),var(--tata-blue-2)); display:grid; place-items:center; color:#fff; font-weight:800; box-shadow:0 10px 22px rgba(0,59,113,.2); }
+    .side-nav { background:var(--tata-blue); min-height:calc(100vh - 72px); color:#dbeafe; border-radius:0 28px 28px 0; position:sticky; top:72px; }
+    .side-nav .nav-link { color:#dbeafe; border-radius:14px; padding:12px 14px; margin-bottom:6px; font-weight:600; font-size:.94rem; }
+    .side-nav .nav-link.active,.side-nav .nav-link:hover { background:#fff; color:var(--tata-blue); }
+    .hero-card { background:linear-gradient(135deg,var(--tata-blue),#0b65b1); color:#fff; border:0; border-radius:28px; overflow:hidden; position:relative; box-shadow:0 18px 40px rgba(0,59,113,.18); }
+    .hero-card::after { content:""; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,.08); position:absolute; right:-80px; top:-90px; }
+    .panel-card { background:#fff; border:1px solid var(--line); border-radius:22px; box-shadow:0 12px 30px rgba(15,23,42,.05); }
+    .small-label { color:var(--muted); font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+    .form-control,.form-select { border-radius:12px; border-color:var(--line); }
+    .btn-tata { background:var(--tata-red); color:#fff; border:0; border-radius:12px; font-weight:700; box-shadow:0 10px 18px rgba(215,25,32,.18); }
+    .btn-tata:hover { background:#b9141a; color:#fff; }
+    .btn-outline-tata { border:1px solid var(--tata-blue); color:var(--tata-blue); border-radius:12px; font-weight:700; }
+    .btn-outline-tata:hover { background:var(--tata-blue); color:#fff; }
+    .module-tab { border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--tata-blue); font-weight:700; padding:.55rem .95rem; cursor:pointer; }
+    .module-tab.active { background:var(--tata-blue); color:#fff; }
+    .hidden { display:none !important; }
+    .mini-card { border:1px solid var(--line); border-radius:16px; padding:14px; background:#fff; }
+    .table>:not(caption)>*>* { padding:12px 10px; }
+    .badge-soft-blue { background:var(--soft-blue); color:var(--tata-blue); border:1px solid #d8ebff; }
+    @media (max-width: 991px) { .side-nav { min-height:auto; border-radius:0 0 24px 24px; position:static; } }
+  </style>
+</head>
+<body>
+  <nav class="topbar py-3">
+    <div class="container-fluid px-4 d-flex align-items-center justify-content-between">
+      <div class="brand-pill"><div class="brand-mark">TA</div><div><div class="fs-5 lh-1">TATA AIG</div><small class="text-muted fw-semibold">Admin Configuration</small></div></div>
+      <div class="d-flex align-items-center gap-2"><div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-white border fw-bold text-primary">Admin only</div><a class="btn btn-outline-tata btn-sm" href="index.html"><i class="bi bi-arrow-left me-1"></i> Back to Dashboard</a></div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <aside class="col-lg-2 px-0">
+        <div class="side-nav p-3 p-lg-4">
+          <div class="small text-white-50 mb-3 fw-bold text-uppercase">Admin Workspace</div>
+          <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-2"></i>Monitoring Dashboard</a>
+            <a class="nav-link active" href="#"><i class="bi bi-sliders2 me-2"></i>Configuration</a>
+          </nav>
+          <div class="mt-4 p-3 rounded-4" style="background: rgba(255,255,255,.1);"><div class="small text-white-50">Scope</div><div class="fw-bold text-white">Intent, Stage, Task, Module, Field</div><span class="badge bg-light text-primary mt-2">Schema Registry</span></div>
+        </div>
+      </aside>
+
+      <main class="col-lg-10 p-4">
+        <section class="mb-4">
+          <div class="hero-card p-4 p-lg-5">
+            <div class="row align-items-center position-relative" style="z-index:1;">
+              <div class="col-lg-8">
+                <span class="badge bg-white text-primary rounded-pill px-3 py-2 mb-3">Configuration Console</span>
+                <h1 class="display-6 fw-bold mb-2">Editable Admin Configuration</h1>
+                <p class="mb-0 text-white-50 fs-6">Configure intent mapping, stage/task mapping, and module plus field definitions with light interactions: choose modules, view fields inside modules, add rows, and save drafts.</p>
+              </div>
+              <div class="col-lg-4 mt-4 mt-lg-0 text-lg-end">
+                <button class="btn btn-light text-primary fw-bold">Draft first → Publish later</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mb-4">
+          <div class="d-flex flex-wrap gap-2" id="configTabs">
+            <button class="module-tab active" onclick="showSection('intentSection', this)">Intent Mapper</button>
+            <button class="module-tab" onclick="showSection('stageTaskSection', this)">Stage & Task Mapper</button>
+            <button class="module-tab" onclick="showSection('moduleFieldSection', this)">Module & Field Mapper</button>
+          </div>
+        </section>
+
+        <section id="intentSection" class="config-section">
+          <div class="panel-card p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div>
+                <h4 class="fw-bold mb-1">Intent Mapper</h4>
+                <p class="text-muted mb-0">Configure the unique combination of intent, sub-intent, domain, LOB and product, then map modules and workflow. citeturn28search1</p>
+              </div>
+              <div class="d-flex gap-2"><button class="btn btn-outline-tata" onclick="saveDraft('Intent Mapper draft saved')">Save Draft</button><button class="btn btn-tata" onclick="saveDraft('New intent version published (prototype)')">Publish New Version</button></div>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-4"><label class="form-label fw-semibold">Intent Mapper ID</label><input class="form-control" id="intentMapperId" value="PE_RFQ_NB_001"></div>
+              <div class="col-md-4"><label class="form-label fw-semibold">Display Name</label><input class="form-control" id="displayName" value="P&E RFQ Request"></div>
+              <div class="col-md-4"><label class="form-label fw-semibold">Domain</label><input class="form-control" value="Commercial Lines"></div>
+              <div class="col-md-3"><label class="form-label fw-semibold">Intent</label><select class="form-select" id="intentSelect"><option>RFQ</option><option>Renewal</option><option>Endorsement</option></select></div>
+              <div class="col-md-3"><label class="form-label fw-semibold">Sub Intent</label><select class="form-select" id="subIntentSelect"><option>New Business</option><option>Quote Revision</option><option>Referral Review</option></select></div>
+              <div class="col-md-3"><label class="form-label fw-semibold">LOB</label><select class="form-select" id="lobSelect"><option>Property</option><option>Energy</option><option>Marine</option></select></div>
+              <div class="col-md-3"><label class="form-label fw-semibold">Product Name</label><select class="form-select" id="productSelect"><option>P&E</option><option>Fire Insurance</option><option>Marine Insurance</option></select></div>
+              <div class="col-md-4"><label class="form-label fw-semibold">Workflow ID</label><input class="form-control" id="workflowId" value="WF-PE-RFQ-001"></div>
+              <div class="col-md-4"><label class="form-label fw-semibold">Default Owner</label><input class="form-control" id="defaultOwner" value="UW Team"></div>
+              <div class="col-md-4"><label class="form-label fw-semibold">Status</label><select class="form-select" id="statusSelect"><option>Draft</option><option>Published</option><option>Deprecated</option></select></div>
+            </div>
+
+            <div class="soft-box mb-4">
+              <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                <div>
+                  <div class="small-label">Mapped Modules</div>
+                  <div class="fw-semibold">Choose reusable modules to attach to this intent. Modules are reusable across intents. citeturn28search1</div>
+                </div>
+                <button class="btn btn-outline-tata btn-sm" onclick="syncSelectedModulesToFieldSection()"><i class="bi bi-arrow-repeat me-1"></i> Sync to Module & Field Mapper</button>
+              </div>
+              <div class="row g-3" id="modulePickerRow"></div>
+            </div>
+
+            <div>
+              <div class="small-label mb-2">Selected Modules</div>
+              <div class="d-flex flex-wrap gap-2" id="selectedModuleChips"></div>
+            </div>
+          </div>
+
+          <div class="panel-card p-4">
+            <h5 class="fw-bold mb-3">Publish Validation Checklist</h5>
+            <div class="row g-3">
+              <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Intent details</div><div class="fw-semibold">intent, subIntent, domain, lob, productName and displayName present</div></div></div>
+              <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Uniqueness</div><div class="fw-semibold">No duplicate Published mapping exists for same combination</div></div></div>
+              <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Module mapping</div><div class="fw-semibold">At least one module is mapped</div></div></div>
+              <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Field mapping</div><div class="fw-semibold">Required fields are configured for mapped modules</div></div></div>
+              <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Workflow mapping</div><div class="fw-semibold">Workflow and default owner are defined</div></div></div>
+              <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Version</div><div class="fw-semibold">Publish should create a new version before use</div></div></div>
+            </div>
+            <div class="small text-muted mt-3">Publish validation, status behavior, and versioning at intent level are aligned to the BRD. citeturn28search1</div>
+          </div>
+        </section>
+
+        <section id="stageTaskSection" class="config-section hidden">
+          <div class="panel-card p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div>
+                <h4 class="fw-bold mb-1">Stage & Task Mapper</h4>
+                <p class="text-muted mb-0">Map LOB + Product + Intent + Sub Intent to a stage list and a task list, as requested.</p>
+              </div>
+              <div class="d-flex gap-2"><button class="btn btn-outline-tata" onclick="addStageRow()">Add Stage</button><button class="btn btn-outline-tata" onclick="addTaskRow()">Add Task</button><button class="btn btn-tata" onclick="saveDraft('Stage & Task mapping saved')">Save Mapping</button></div>
+            </div>
+            <div class="row g-3 mb-4">
+              <div class="col-md-3"><label class="form-label fw-semibold">LOB</label><select class="form-select"><option>Property</option><option>Energy</option><option>Marine</option></select></div>
+              <div class="col-md-3"><label class="form-label fw-semibold">Product</label><select class="form-select"><option>P&E</option><option>Construction</option><option>Marine</option></select></div>
+              <div class="col-md-3"><label class="form-label fw-semibold">Intent</label><select class="form-select"><option>RFQ</option><option>Renewal</option></select></div>
+              <div class="col-md-3"><label class="form-label fw-semibold">Sub Intent</label><select class="form-select"><option>New Business</option><option>Quote Revision</option></select></div>
+            </div>
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <h6 class="fw-bold mb-3">Configured Stages</h6>
+                <div class="table-responsive">
+                  <table class="table align-middle mb-0" id="stagesTable">
+                    <thead class="table-light"><tr><th>Order</th><th>Stage Name</th><th>Owner</th><th>Type</th></tr></thead>
+                    <tbody>
+                      <tr><td>1</td><td>Customer Creation</td><td>Sales</td><td>Primary</td></tr>
+                      <tr><td>2</td><td>Under Review</td><td>UW</td><td>Primary</td></tr>
+                      <tr><td>3</td><td>Quote</td><td>Sales</td><td>Primary</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <h6 class="fw-bold mb-3">Configured Tasks</h6>
+                <div class="table-responsive">
+                  <table class="table align-middle mb-0" id="tasksTable">
+                    <thead class="table-light"><tr><th>Stage</th><th>Task Name</th><th>Owner</th><th>SLA</th></tr></thead>
+                    <tbody>
+                      <tr><td>Customer Creation</td><td>Lead creation</td><td>Sales</td><td>4h</td></tr>
+                      <tr><td>Under Review</td><td>UW review and routing</td><td>UW</td><td>8h</td></tr>
+                      <tr><td>Quote</td><td>Generate Quote</td><td>Sales</td><td>6h</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="moduleFieldSection" class="config-section hidden">
+          <div class="panel-card p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div>
+                <h4 class="fw-bold mb-1">Module & Field Mapper</h4>
+                <p class="text-muted mb-0">Choose a module and instantly view the fields inside that module with placeholder, data type and validation details. Field-level validation, required rules and sensitive flags are configured here. citeturn28search1</p>
+              </div>
+              <div class="d-flex gap-2"><button class="btn btn-outline-tata" onclick="addFieldRow()">Add Field</button><button class="btn btn-tata" onclick="saveDraft('Module & Field mapping saved')">Save Field Mapping</button></div>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-4"><label class="form-label fw-semibold">Select Module</label><select class="form-select" id="moduleSelector" onchange="renderFieldTable()"></select></div>
+              <div class="col-md-4"><label class="form-label fw-semibold">Module ID</label><input class="form-control" id="moduleIdInput" value="MOD-CUST-001"></div>
+              <div class="col-md-4"><label class="form-label fw-semibold">Module Name</label><input class="form-control" id="moduleNameInput" value="Customer"></div>
+              <div class="col-12"><label class="form-label fw-semibold">Module Description</label><textarea class="form-control" rows="2" id="moduleDescriptionInput">Customer identity and contact information</textarea></div>
+            </div>
+
+            <div class="row g-3 mb-4" id="moduleSummaryCards"></div>
+
+            <div class="table-responsive">
+              <table class="table align-middle mb-0">
+                <thead class="table-light"><tr><th>Field Name</th><th>Display Name</th><th>Placeholder</th><th>Data Type</th><th>Validation Rule</th><th>Default</th><th>Required</th><th>Sensitive</th></tr></thead>
+                <tbody id="fieldsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toast = new bootstrap.Toast(document.getElementById('saveToast'));
+
+    const moduleRegistry = [
+      {
+        moduleId:'MOD-CUST-001',
+        moduleName:'Customer',
+        moduleDescription:'Customer identity and contact information',
+        selected:true,
+        fields:[
+          {fieldName:'customerMobile', displayName:'Customer Mobile Number', placeholderName:'Mobile number', dataType:'String', validationRule:'10 digit mobile number', defaultValue:'NA', required:'Yes', isSensitive:'Yes'},
+          {fieldName:'customerEmail', displayName:'Email ID', placeholderName:'Email address', dataType:'String', validationRule:'Email format', defaultValue:'NA', required:'Yes', isSensitive:'Yes'},
+          {fieldName:'pinCode', displayName:'Pin Code', placeholderName:'Pin code', dataType:'Number', validationRule:'6 digit pincode', defaultValue:'NA', required:'Yes', isSensitive:'No'}
+        ]
+      },
+      {
+        moduleId:'MOD-QUOTE-001',
+        moduleName:'Quote',
+        moduleDescription:'Quote and premium details',
+        selected:true,
+        fields:[
+          {fieldName:'premium', displayName:'Premium', placeholderName:'Premium amount', dataType:'Number', validationRule:'Positive amount', defaultValue:'0', required:'Yes', isSensitive:'No'},
+          {fieldName:'quoteValidity', displayName:'Quote Validity', placeholderName:'Quote validity in days', dataType:'Number', validationRule:'1-30 days', defaultValue:'15', required:'Yes', isSensitive:'No'}
+        ]
+      },
+      {
+        moduleId:'MOD-PAY-001',
+        moduleName:'Payment',
+        moduleDescription:'Payment and collection details',
+        selected:true,
+        fields:[
+          {fieldName:'paymentStatus', displayName:'Payment Status', placeholderName:'Select payment status', dataType:'Enum', validationRule:'Allowed list', defaultValue:'Pending', required:'Yes', isSensitive:'No'},
+          {fieldName:'paymentLink', displayName:'Payment Link', placeholderName:'Payment URL', dataType:'String', validationRule:'URL format', defaultValue:'NA', required:'No', isSensitive:'No'}
+        ]
+      },
+      {
+        moduleId:'MOD-DOC-001',
+        moduleName:'Documents',
+        moduleDescription:'Customer and policy documents',
+        selected:false,
+        fields:[
+          {fieldName:'documentType', displayName:'Document Type', placeholderName:'Select document type', dataType:'Enum', validationRule:'Allowed list', defaultValue:'NA', required:'Yes', isSensitive:'No'},
+          {fieldName:'documentFile', displayName:'Document File', placeholderName:'Upload document', dataType:'File', validationRule:'PDF/JPG only', defaultValue:'NA', required:'No', isSensitive:'Yes'}
+        ]
+      },
+      {
+        moduleId:'MOD-KYC-001',
+        moduleName:'KYC',
+        moduleDescription:'KYC and verification fields',
+        selected:false,
+        fields:[
+          {fieldName:'kycStatus', displayName:'KYC Status', placeholderName:'Select KYC status', dataType:'Enum', validationRule:'Allowed list', defaultValue:'Pending', required:'Yes', isSensitive:'No'},
+          {fieldName:'panNumber', displayName:'PAN Number', placeholderName:'PAN', dataType:'String', validationRule:'PAN format', defaultValue:'NA', required:'No', isSensitive:'Yes'}
+        ]
+      }
+    ];
+
+    function saveDraft(message){ document.getElementById('toastBody').textContent = message; toast.show(); }
+
+    function showSection(sectionId, btn){
+      document.querySelectorAll('.config-section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(sectionId).classList.remove('hidden');
+      document.querySelectorAll('#configTabs .module-tab').forEach(tab => tab.classList.remove('active'));
+      btn.classList.add('active');
+      if(sectionId === 'moduleFieldSection') renderFieldTable();
+    }
+
+    function renderModulePicker(){
+      const row = document.getElementById('modulePickerRow');
+      row.innerHTML = moduleRegistry.map((mod, idx) => `
+        <div class="col-md-4">
+          <div class="module-pick h-100">
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" role="switch" id="moduleSwitch_${idx}" ${mod.selected ? 'checked' : ''} onchange="toggleModule(${idx})">
+              <label class="form-check-label fw-semibold" for="moduleSwitch_${idx}">${mod.moduleName}</label>
+            </div>
+            <div class="small text-muted mb-2">${mod.moduleId}</div>
+            <div>${mod.moduleDescription}</div>
+          </div>
+        </div>`).join('');
+      renderSelectedModuleChips();
+    }
+
+    function renderSelectedModuleChips(){
+      const selected = moduleRegistry.filter(m => m.selected);
+      document.getElementById('selectedModuleChips').innerHTML = selected.length
+        ? selected.map(m => `<span class="chip"><i class="bi bi-box-seam"></i>${m.moduleName}</span>`).join('')
+        : '<div class="text-muted">No modules selected.</div>';
+    }
+
+    function toggleModule(index){
+      moduleRegistry[index].selected = !moduleRegistry[index].selected;
+      renderSelectedModuleChips();
+      syncSelectedModulesToFieldSection();
+      saveDraft(`${moduleRegistry[index].moduleName} ${moduleRegistry[index].selected ? 'selected' : 'removed'} for this intent`);
+    }
+
+    function syncSelectedModulesToFieldSection(){
+      const selector = document.getElementById('moduleSelector');
+      const selected = moduleRegistry.filter(m => m.selected);
+      selector.innerHTML = selected.map((mod, idx) => `<option value="${mod.moduleId}">${mod.moduleName}</option>`).join('');
+      if(!selected.length){
+        selector.innerHTML = '<option value="">No module selected</option>';
+      }
+      renderFieldTable();
+    }
+
+    function getSelectedModule(){
+      const selectedId = document.getElementById('moduleSelector').value;
+      return moduleRegistry.find(m => m.moduleId === selectedId) || moduleRegistry.filter(m => m.selected)[0] || null;
+    }
+
+    function renderFieldTable(){
+      const mod = getSelectedModule();
+      const body = document.getElementById('fieldsTableBody');
+      const cards = document.getElementById('moduleSummaryCards');
+      if(!mod){
+        document.getElementById('moduleIdInput').value = '';
+        document.getElementById('moduleNameInput').value = '';
+        document.getElementById('moduleDescriptionInput').value = '';
+        cards.innerHTML = '<div class="col-12"><div class="text-muted">Select at least one module from Intent Mapper to view fields here.</div></div>';
+        body.innerHTML = '<tr><td colspan="8" class="text-muted">No module selected.</td></tr>';
+        return;
+      }
+      document.getElementById('moduleIdInput').value = mod.moduleId;
+      document.getElementById('moduleNameInput').value = mod.moduleName;
+      document.getElementById('moduleDescriptionInput').value = mod.moduleDescription;
+      cards.innerHTML = `
+        <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Module ID</div><div class="fw-semibold">${mod.moduleId}</div></div></div>
+        <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Field Count</div><div class="fw-semibold">${mod.fields.length} fields</div></div></div>
+        <div class="col-md-4"><div class="mini-card"><div class="small-label mb-2">Selected for Intent</div><div class="fw-semibold">${mod.selected ? 'Yes' : 'No'}</div></div></div>`;
+      body.innerHTML = mod.fields.map((f, idx) => `
+        <tr>
+          <td><input class="form-control form-control-sm" value="${f.fieldName}" onchange="updateField('${mod.moduleId}', ${idx}, 'fieldName', this.value)"></td>
+          <td><input class="form-control form-control-sm" value="${f.displayName}" onchange="updateField('${mod.moduleId}', ${idx}, 'displayName', this.value)"></td>
+          <td><input class="form-control form-control-sm" value="${f.placeholderName}" onchange="updateField('${mod.moduleId}', ${idx}, 'placeholderName', this.value)"></td>
+          <td><select class="form-select form-select-sm" onchange="updateField('${mod.moduleId}', ${idx}, 'dataType', this.value)"><option ${f.dataType==='String'?'selected':''}>String</option><option ${f.dataType==='Number'?'selected':''}>Number</option><option ${f.dataType==='Date'?'selected':''}>Date</option><option ${f.dataType==='Boolean'?'selected':''}>Boolean</option><option ${f.dataType==='Enum'?'selected':''}>Enum</option><option ${f.dataType==='File'?'selected':''}>File</option></select></td>
+          <td><input class="form-control form-control-sm" value="${f.validationRule}" onchange="updateField('${mod.moduleId}', ${idx}, 'validationRule', this.value)"></td>
+          <td><input class="form-control form-control-sm" value="${f.defaultValue}" onchange="updateField('${mod.moduleId}', ${idx}, 'defaultValue', this.value)"></td>
+          <td><select class="form-select form-select-sm" onchange="updateField('${mod.moduleId}', ${idx}, 'required', this.value)"><option ${f.required==='Yes'?'selected':''}>Yes</option><option ${f.required==='No'?'selected':''}>No</option></select></td>
+          <td><select class="form-select form-select-sm" onchange="updateField('${mod.moduleId}', ${idx}, 'isSensitive', this.value)"><option ${f.isSensitive==='Yes'?'selected':''}>Yes</option><option ${f.isSensitive==='No'?'selected':''}>No</option></select></td>
+        </tr>`).join('');
+    }
+
+    function updateField(moduleId, fieldIndex, key, value){
+      const mod = moduleRegistry.find(m => m.moduleId === moduleId);
+      if(!mod) return;
+      mod.fields[fieldIndex][key] = value;
+      saveDraft(`${mod.moduleName} field updated`);
+    }
+
+    function addFieldRow(){
+      const mod = getSelectedModule();
+      if(!mod){ saveDraft('Select a module first'); return; }
+      mod.fields.push({fieldName:'newField', displayName:'New Field', placeholderName:'Enter value', dataType:'String', validationRule:'NA', defaultValue:'NA', required:'No', isSensitive:'No'});
+      renderFieldTable();
+      saveDraft(`New field row added in ${mod.moduleName}`);
+    }
+
+    function addStageRow(){
+      const tbody = document.querySelector('#stagesTable tbody');
+      const nextOrder = tbody.querySelectorAll('tr').length + 1;
+      tbody.insertAdjacentHTML('beforeend', `<tr><td>${nextOrder}</td><td>New Stage ${nextOrder}</td><td>Owner</td><td>Primary</td></tr>`);
+      saveDraft('New stage row added');
+    }
+
+    function addTaskRow(){
+      const tbody = document.querySelector('#tasksTable tbody');
+      tbody.insertAdjacentHTML('beforeend', `<tr><td>New Stage</td><td>New Task</td><td>Owner</td><td>4h</td></tr>`);
+      saveDraft('New task row added');
+    }
+
+    renderModulePicker();
+    syncSelectedModulesToFieldSection();
+  </script>
+</body>
+</html>
